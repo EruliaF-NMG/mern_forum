@@ -1,8 +1,8 @@
 /*
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:31:52
- * @Last Modified by:   Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 10:31:52
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-07 13:01:22
  */
 
 import mongoose from 'mongoose';
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: userStatus.UNBLOCKED,
   },
-  profile: { type: profileSchema, default: profileSchema },
+  profile: { type: profileSchema, default: () => ({}) },
   created_at: {
     type: Date,
     default: Date.now,
@@ -73,14 +73,16 @@ const userSchema = new mongoose.Schema({
 
 userSchema
   .virtual('encrypted_password')
-  .set((password) => {
+  .set(function (password) {
     this.password = this.encryptPassword(password);
   })
   .get(() => this.password);
 
 userSchema.methods = {
-  authenticate: (plainText) => bcrypt.compareSync(plainText, this.password),
-  encryptPassword: (password) => {
+  authenticate(plainText) {
+    return bcrypt.compareSync(plainText, this.password);
+  },
+  encryptPassword(password) {
     if (!password) return '';
     try {
       return bcrypt.hashSync(password, 10);

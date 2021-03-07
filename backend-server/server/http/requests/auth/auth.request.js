@@ -2,37 +2,40 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 12:02:22
+ * @Last Modified time: 2021-03-07 12:52:58
  */
 
 import validate from '../../../helpers/validation';
 import { badResponse } from '../../../config/api-response.config';
 import { generateErrorResponseFn } from '../../../helpers/common-helpers/common-methods';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
+
 /**
- * @author Nisal Madusanka(EruliaF)
  * @description validate create Client API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next
  */
-const createClientValidate = (req, res, next) => {
+const loginValidate = (req, res, next) => {
   const formData = {
-    name: get(req.body, 'name', ''),
+    email: get(req.body, 'email', ''),
+    password: get(req.body, 'password', ''),
     client_code: get(req.body, 'client_code', ''),
-    secret: get(req.body, 'secret', ''),
+    client_secret: get(req.body, 'client_secret', ''),
   };
 
   validate(formData)
     .setFileds({
-      name: 'Name',
-      client_code: 'Client Code',
-      secret: 'Secret',
+      username: 'Username',
+      password: 'Password',
+      client_code: 'Client ID',
+      client_secret: 'Client secret',
     })
     .setRules({
-      name: 'required',
-      client_code: 'required|unique:oauthclients,client_code',
-      secret: 'required|unique:oauthclients,secret',
+      email: 'required|email',
+      password: 'required',
+      client_code: 'required',
+      client_secret: 'required',
     })
     .setMessage({})
     // eslint-disable-next-line consistent-return
@@ -44,7 +47,7 @@ const createClientValidate = (req, res, next) => {
             generateErrorResponseFn(
               badResponse,
               error,
-              'Validation error occurred, when creating new client'
+              'Validation error occurred, when user login'
             )
           );
       }
@@ -54,4 +57,4 @@ const createClientValidate = (req, res, next) => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export { createClientValidate };
+export { loginValidate };

@@ -1,8 +1,8 @@
 /*
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:32:29
- * @Last Modified by:   Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 10:32:29
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-07 12:52:03
  */
 
 import mongoose from 'mongoose';
@@ -34,7 +34,7 @@ const oauthAccessTokenSchema = new mongoose.Schema({
   },
   oauth_refresh_token: {
     type: oauthRefreshTokenSchema,
-    default: oauthRefreshTokenSchema,
+    default: () => ({}),
   },
   updated: Date,
   created: {
