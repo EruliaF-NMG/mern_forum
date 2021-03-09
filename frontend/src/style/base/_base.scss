@@ -1,0 +1,270 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2021-03-09 09:56:59 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-09 13:16:54
+ */
+
+.initclass {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  border: none;
+  font-weight: normal;
+  text-shadow: none;
+  background-color: none;
+  box-shadow: none;
+}
+
+.defaultFontFamily {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.defaultFontSize {
+  font-size: $defaultFontSize;
+}
+
+body {
+  @extend .initclass;
+  @extend .defaultFontFamily;
+  @extend .defaultFontSize;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+font,
+span,
+div,
+a,
+small,
+table {
+  @extend .initclass;
+  @extend .defaultFontFamily;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.floatNone {
+  float: none !important;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.fullWidthDiv {
+  @extend .floatLeft;
+  width: 100%;
+}
+
+.halfWidthDiv {
+  @extend .floatLeft;
+  width: 50%;
+}
+
+.paddingNone {
+  padding: 0px !important;
+}
+
+.paddingTopBottomNone {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.paddingLeftRightNone {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.paddingBottomNone {
+  padding-bottom: 0px !important;
+}
+
+.paddingTopNone {
+  padding-top: 0px !important;
+}
+
+.paddingLeftNone {
+  padding-left: 0px !important;
+}
+
+.paddingRightNone {
+  padding-right: 0px !important;
+}
+
+.defaultPadding {
+  padding: $defaultPadding;
+}
+
+.defaultHalfPadding {
+  padding: $defaultHalfPadding !important;
+}
+
+.defaultPaddingTopBottom {
+  padding-top: $defaultPadding;
+  padding-bottom: $defaultPadding;
+}
+
+.defaultHalfPaddingTopBottom {
+  padding-top: $defaultHalfPadding !important;
+  padding-bottom: $defaultHalfPadding !important;
+}
+
+.defaultPaddingLeftRight {
+  padding-left: $defaultPadding;
+  padding-right: $defaultPadding;
+}
+
+.defaultHalfPaddingLeftRight {
+  padding-left: $defaultHalfPadding !important;
+  padding-right: $defaultHalfPadding !important;
+}
+
+.defaultPaddingBottom {
+  padding-bottom: $defaultPadding;
+}
+
+.defaultHalfPaddingBottom {
+  padding-bottom: $defaultHalfPadding !important;
+}
+
+.defaultPaddingTop {
+  padding-top: $defaultPadding;
+}
+
+.defaultHalfPaddingTop {
+  padding-top: $defaultHalfPadding !important;
+}
+
+.defaultPaddingLeft {
+  padding-left: $defaultPadding;
+}
+
+.defaultHalfPaddingLeft {
+  padding-left: $defaultHalfPadding !important;
+}
+
+.defaultPaddingRight {
+  padding-right: $defaultPadding;
+}
+
+.defaultHalfPaddingRight {
+  padding-right: $defaultHalfPadding !important;
+}
+
+.marginNone {
+  margin: 0px !important;
+}
+
+.marginTopBottomNone {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.marginLeftRightNone {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.marginBottomNone {
+  margin-bottom: 0px !important;
+}
+
+.marginTopNone {
+  margin-top: 0px !important;
+}
+
+.marginLeftNone {
+  margin-left: 0px !important;
+}
+
+.marginRightNone {
+  margin-right: 0px !important;
+}
+
+.defaultMargin {
+  margin: $defaultMargin;
+}
+
+.defaultHalfMargin {
+  margin: $defaultHalfMargin !important;
+}
+
+.defaultMarginTopBottom {
+  margin-top: $defaultMargin;
+  margin-bottom: $defaultMargin;
+}
+
+.defaultHalfMarginTopBottom {
+  margin-top: $defaultHalfMargin !important;
+  margin-bottom: $defaultHalfMargin !important;
+}
+
+.defaultMarginLeftRight {
+  margin-left: $defaultMargin;
+  margin-right: $defaultMargin;
+}
+
+.defaultHalfMarginLeftRight {
+  margin-left: $defaultHalfMargin !important;
+  margin-right: $defaultHalfMargin !important;
+}
+
+.defaultMarginBottom {
+  margin-bottom: $defaultMargin;
+}
+
+.defaultHalfMarginBottom {
+  margin-bottom: $defaultHalfMargin !important;
+}
+
+.defaultMarginTop {
+  margin-top: $defaultMargin;
+}
+
+.defaultHalfMarginTop {
+  margin-top: $defaultHalfMargin !important;
+}
+
+.defaultMarginLeft {
+  margin-left: $defaultMargin;
+}
+
+.defaultHalfMarginLeft {
+  margin-left: $defaultHalfMargin !important;
+}
+
+.defaultMarginRight {
+  margin-right: $defaultMargin;
+}
+
+.defaultHalfMarginRight {
+  margin-right: $defaultHalfMargin !important;
+}
+
+.defaultPageTitle {
+  font-size: $defaultTitle;
+}
+
+.setElementToCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1 {
+  font-size: $defaultH1;
+}

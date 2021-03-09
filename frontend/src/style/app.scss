@@ -1,0 +1,26 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Description: SCSS files initializer  
+ * @Date: 2020-02-06 18:30:48 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-09 10:07:08
+ */
+
+/* Include library files */
+@import '../../node_modules//bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/@mdi/font/scss/materialdesignicons.scss';
+
+/* Include base files */
+@import './base/variables';
+@import './base/function';
+@import './base/mixins';
+@import './base/base';
+
+/* Include form */
+@import './layouts/ui-components/ui-elements/index';
+
+/** Include template **/
+@import './layouts/ui-components/templates/template';
+
+/**Include Modules **/
+@import './layouts/modules/index';

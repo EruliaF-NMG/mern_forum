@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 09:29:29
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 09:32:23
+ * @Last Modified time: 2021-03-09 14:17:18
  */
 
 const dbConfig = {
@@ -14,6 +14,7 @@ const dbConfig = {
   password: process.env.DB_PASSWORD || 'nisal',
 };
 
-const mongoUri = `mongodb+srv://${dbConfig.userName}:${dbConfig.password}@cluster0.uac76.mongodb.net/${dbConfig.database}?retryWrites=true&w=majority`;
+//const mongoUri = `mongodb+srv://${dbConfig.userName}:${dbConfig.password}@cluster0.uac76.mongodb.net/${dbConfig.database}?retryWrites=true&w=majority`;
+const mongoUri = 'mongodb://localhost:27017/merntest';
 
 export { dbConfig, mongoUri };

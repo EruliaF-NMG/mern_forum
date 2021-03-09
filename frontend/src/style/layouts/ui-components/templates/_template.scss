@@ -1,0 +1,30 @@
+.templateOneWrapper {
+  .headerSubWrapper {
+    @include displayFlex();
+    @include flexDirection(row);
+    justify-content: space-between;
+    ul {
+      @include displayFlex();
+    }
+    .profileInfo {
+      @include displayFlex();
+      .profilePicWrapper {
+        @include displayFlex();
+        @include flexDirection(row);
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50px;
+        }
+        span {
+          padding-top: 5px;
+          padding-bottom: 0px !important;
+          color: $white;
+        }
+      }
+    }
+  }
+  .bodyWrapper {
+    padding-top: 100px;
+  }
+}

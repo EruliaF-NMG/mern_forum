@@ -1,0 +1,38 @@
+/**
+ * @Author: Sujith
+ * @Date: 2020-03-12 10:18:12
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-09 13:57:48
+ */
+
+.LoginMainWrapper {
+  @include displayFlex();
+  background-color: $lightGrayColor;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+
+  .defaultCardWrapper {
+    @include displayFlex();
+    @include flexDirection(column);
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    padding: 30px !important;
+    height: 400px;
+
+    .formWraper {
+      margin: $defaultPadding 0px;
+    }
+  }
+
+  .loginWrapper {
+    margin-right: $defaultPadding;
+  }
+
+  .registerWrapper {
+    margin-left: $defaultPadding;
+  }
+}

@@ -1,0 +1,94 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2021-03-09 09:57:43 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-09 21:00:03
+ */
+
+// Element Colors
+$white: #ffffff;
+$black: #000000;
+$lightGrayColor: #dce1e5;
+$purple: #6f42c1;
+/*
+* ----------------------------
+* Media Queries Screen Sizes and width height
+* ----------------------------
+*/
+
+//Desktop
+$largeDevice: 1200px;
+//Tab
+$mediumDevice: 992px;
+//Mobile
+$smallDevice: 768px;
+$extraSmallDevice: 576px;
+$extraSmallDevice2: 500px;
+
+$mobileBreakPoint: $largeDevice;
+
+/*
+* ----------------------------
+* Media Queries Screen Sizes width height
+* ----------------------------
+*/
+
+/*
+* ----------------------------
+* Padding Values
+* ----------------------------
+*/
+
+// Common values
+$defaultPadding: 15px;
+$defaultHalfPadding: $defaultPadding / 2;
+
+/*
+* ----------------------------
+* Padding Values
+* ----------------------------
+*/
+
+/*
+* ----------------------------
+* Margin Values
+* ----------------------------
+*/
+
+// Common values
+$defaultMargin: 15px;
+$defaultHalfMargin: $defaultMargin / 2;
+
+/*
+* ----------------------------
+* Margin Values
+* ----------------------------
+*/
+
+/*
+* ----------------------------
+* Element Font Sizes
+* ----------------------------
+*/
+
+// Common sizes
+$defaultFontSize: 14px;
+$defaultH1: 25px;
+$defaultH2: 20px;
+$defaultH3: 18px;
+$defaultH4: 15px;
+$defaultH5: 13px;
+$defaultH6: 11px;
+
+// Helper text sizes
+$defaultHelperText: $defaultH6;
+
+// Button text sizes
+$inputBtnTxt: 15px;
+
+$defaultTitle: $defaultH3;
+/*
+* ----------------------------
+* Element Font Sizes
+* ----------------------------
+*/

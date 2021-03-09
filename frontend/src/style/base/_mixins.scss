@@ -1,0 +1,83 @@
+/*
+  * display : flex 
+ */
+@mixin displayFlex() {
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+/*
+  * flex : 1 
+ */
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+//row | column
+@mixin flexDirection($direction) {
+  -webkit-flex-direction: $direction;
+  -moz-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+// flex-start | flex-end | center | space-between | space-around
+@mixin justifyContent($justify) {
+  -webkit-justify-content: $justify;
+  -moz-justify-content: $justify;
+  -ms-justify-content: $justify;
+  justify-content: $justify;
+  -ms-flex-pack: $justify;
+}
+
+// flex-start | flex-end | center | space-between | space-around | stretch
+@mixin alignContent($align) {
+  -webkit-align-content: $align;
+  -moz-align-content: $align;
+  -ms-align-content: $align;
+  align-content: $align;
+}
+
+// flex-start | flex-end | center | baseline | stretch
+@mixin alignItems($align) {
+  -webkit-align-items: $align;
+  -moz-align-items: $align;
+  -ms-align-items: $align;
+  -ms-flex-align: $align;
+  align-items: $align;
+}
+
+// auto | flex-start | flex-end | center | baseline | stretch
+@mixin alignSelf($align) {
+  -webkit-align-self: $align;
+  -moz-align-self: $align;
+  -ms-align-self: $align;
+  align-self: $align;
+}
+
+@mixin transition($expression) {
+  -webkit-transition: #{$expression}; /* Chrome */
+  -moz-transition: #{$expression}; /* Firefox */
+  -o-transition: #{$expression}; /* Opera */
+  transition: #{$expression}; /* all */
+}
+
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression}); /* Firefox */
+  #{$property}: -webkit-calc(#{$expression}); /* Chrome */
+  #{$property}: calc(#{$expression}); /* all */
+}
+
+@mixin boxShadow($expression) {
+  -webkit-box-shadow: #{$expression}; /* Chrome */
+  -moz-box-shadow: #{$expression}; /* Firefox */
+  -o-box-shadow: #{$expression}; /* Opera */
+  box-shadow: #{$expression}; /* all */
+}

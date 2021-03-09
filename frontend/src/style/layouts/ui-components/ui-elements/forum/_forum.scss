@@ -1,0 +1,38 @@
+.forumWrapperStyle {
+  @extend .fullWidthDiv;
+  .forumHeadingWrapper {
+    background-color: $purple;
+    @include displayFlex();
+    justify-content: space-between;
+    .headingTextWrapper {
+    }
+    .filterIconWrapper {
+      span {
+        cursor: pointer;
+        padding: 5px;
+        background-color: $white;
+        border-radius: 50%;
+        i {
+          color: $purple;
+          font-size: $defaultH3;
+        }
+      }
+    }
+  }
+
+  .detailWrapper {
+    margin-bottom: $defaultMargin;
+    .actionWrapper {
+      .defaultInputBtnStyle {
+        margin-right: $defaultMargin;
+      }
+    }
+  }
+
+  .pagingWrapper {
+    .defaultInputBtnStyle {
+      margin-right: $defaultMargin;
+      line-height: 1.3;
+    }
+  }
+}
