@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 07:59:32
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 22:53:01
+ * @Last Modified time: 2021-03-08 10:35:31
  */
 
 export default class CoreService {

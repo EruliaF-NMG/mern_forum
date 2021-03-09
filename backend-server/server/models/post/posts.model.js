@@ -2,16 +2,13 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:31:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 19:16:26
+ * @Last Modified time: 2021-03-08 10:02:15
  */
 
 import mongoose from 'mongoose';
 import { postStatus, commentStatus } from '../../config/database-status';
 
 const commentSchema = new mongoose.Schema({
-  comment_by: {
-    type: mongoose.Schema.ObjectId,
-  },
   comment: {
     type: String,
     trim: true,
@@ -26,11 +23,8 @@ const commentSchema = new mongoose.Schema({
   },
   created_by: {
     type: mongoose.Schema.ObjectId,
+    ref: 'User',
   },
-  updated_by: {
-    type: mongoose.Schema.ObjectId,
-  },
-  updated_at: Date,
 });
 
 const postSchema = new mongoose.Schema({
@@ -59,6 +53,7 @@ const postSchema = new mongoose.Schema({
   },
   created_by: {
     type: mongoose.Schema.ObjectId,
+    ref: 'User',
   },
   updated_by: {
     type: mongoose.Schema.ObjectId,

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 19:24:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 23:05:43
+ * @Last Modified time: 2021-03-08 11:11:14
  */
 
 import postService from '../../../services/post/post.service';
@@ -50,42 +50,39 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-  const formObject = req.validatedFromObject;
-  // eslint-disable-next-line no-underscore-dangle
-  formObject.updated_by = get(req, 'authUser._id', undefined);
-  formObject.updated_at = Date.now();
-  console.log(formObject);
-  postService.updatePost(
-    get(req, 'currentPost._id', null),
-    req.formObject,
-    (error, post) => {
-      console.log(error, post);
-      if (error) {
-        return res
-          .status(failedPostResponse.httpStatus)
-          .json(
-            generateErrorResponseFn(
-              failedPostResponse,
-              error,
-              'unable to update your post'
-            )
-          );
-      }
+  const post = req.currentPost;
+  post.heading = req.validatedFromObject.heading;
+  post.content = req.validatedFromObject.content;
+  post.tags = req.validatedFromObject.tags;
+  post.updated_by = get(req, 'authUser._id', undefined);
+  post.updated_at = Date.now();
+
+  post.save(post, (error, postObj) => {
+    if (error) {
       return res
-        .status(successPostResponse.httpStatus)
+        .status(failedPostResponse.httpStatus)
         .json(
-          generateResponseFn(
-            successPostResponse,
-            post,
-            'post updated successfully'
+          generateErrorResponseFn(
+            failedPostResponse,
+            error,
+            'unable to update your post'
           )
         );
     }
-  );
+    return res
+      .status(successPostResponse.httpStatus)
+      .json(
+        generateResponseFn(
+          successPostResponse,
+          postObj,
+          'post updated successfully'
+        )
+      );
+  });
 };
 
 const getAll = (req, res) => {
-  postService.find({}, (error, users) => {
+  postService.pagination(req.query, (error, users) => {
     if (error) {
       return res
         .status(exceptionOccurredResponse.httpStatus)

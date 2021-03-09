@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 23:04:11
+ * @Last Modified time: 2021-03-08 09:58:16
  */
 
 import validate from '../../../helpers/validation';
@@ -23,8 +23,8 @@ import { postStatus } from '../../../config/database-status';
 const createPostValidate = (req, res, next) => {
   const formData = {
     heading: get(req.body, 'heading', ''),
-    // content: get(req.body, 'content', ''),
-    // tags: get(req.body, 'tags', ''),
+    content: get(req.body, 'content', ''),
+    tags: get(req.body, 'tags', ''),
   };
 
   validate(formData)
@@ -35,8 +35,8 @@ const createPostValidate = (req, res, next) => {
     })
     .setRules({
       heading: 'required|max:50',
-      //   content: 'required',
-      //   tags: 'required',
+      content: 'required',
+      tags: 'required',
     })
     .setMessage({})
     // eslint-disable-next-line consistent-return
@@ -56,7 +56,7 @@ const createPostValidate = (req, res, next) => {
       next();
     });
 };
-
+// eslint-disable-next-line consistent-return
 const statusChangeValidate = (req, res, next) => {
   if (
     Object.prototype.hasOwnProperty.call(postStatus, req.params.status) === true

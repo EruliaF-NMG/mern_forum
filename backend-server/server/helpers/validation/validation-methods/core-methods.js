@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 13:49:17
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 14:56:44
+ * @Last Modified time: 2021-03-08 19:18:37
  */
 
 import {
@@ -184,4 +184,32 @@ const min = (key, values, param, message, filedList, cb) => {
   }
 };
 
-export { required, requiredIf, same, email, max, min };
+/**
+ * @description validate is array fields
+ * @param {string} key input value key
+ * @param {object} values form values
+ * @param {array} param additional validation parameters
+ * @param {string} message Error message
+ * @param {object} filedList display name for form elements
+ * @param {Function} cb callback function
+ */
+const isArray = (key, values, param, message, filedList, cb) => {
+  try {
+    const formValue = getInputsForValidateFn(values, key);
+    if (Array.isArray(formValue) === false) {
+      cb(message);
+    } else {
+      cb(null, true);
+    }
+  } catch (ex) {
+    console.log(
+      `----------------Validation Exception At (isArray)-------------------`,
+      `Input Key - ${key}`,
+      `Exception - ${ex}`
+    );
+
+    cb(true);
+  }
+};
+
+export { required, requiredIf, same, email, max, min, isArray };

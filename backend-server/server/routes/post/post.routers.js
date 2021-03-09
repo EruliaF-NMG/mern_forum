@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 21:28:10
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 22:21:04
+ * @Last Modified time: 2021-03-07 23:07:37
  */
 import express from 'express';
 
@@ -21,6 +21,7 @@ router.route('/posts').get(isAuth, postController.getAll);
 router
   .route('/posts/:postID')
   .put(isAuth, createPostValidate, postController.update);
+
 router.route('/posts/:postID').get(isAuth, postController.getCurrentPost);
 
 router.route('/posts/:postID').delete(isAuth, postController.deletePost);

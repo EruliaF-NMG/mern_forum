@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:31:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 13:01:22
+ * @Last Modified time: 2021-03-08 17:38:26
  */
 
 import mongoose from 'mongoose';
@@ -58,6 +58,7 @@ const userSchema = new mongoose.Schema({
     default: userStatus.UNBLOCKED,
   },
   profile: { type: profileSchema, default: () => ({}) },
+  roles: [{ type: mongoose.Schema.ObjectId, ref: 'Role' }],
   created_at: {
     type: Date,
     default: Date.now,
