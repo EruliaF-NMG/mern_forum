@@ -30,6 +30,8 @@
   }
 
   .pagingWrapper {
+    display: flex;
+    justify-content: flex-end;
     .defaultInputBtnStyle {
       margin-right: $defaultMargin;
       line-height: 1.3;

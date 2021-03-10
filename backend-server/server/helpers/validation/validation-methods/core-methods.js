@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 13:49:17
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 19:18:37
+ * @Last Modified time: 2021-03-10 19:38:52
  */
 
 import {
@@ -141,7 +141,9 @@ const max = (key, values, param, message, filedList, cb) => {
   try {
     const formValue = getInputsForValidateFn(values, key);
     if (formValue && formValue.length > param) {
-      cb(message);
+      let newMessage = message;
+      newMessage = newMessage.replace(':max', param);
+      cb(newMessage);
     } else {
       cb(null, true);
     }
@@ -169,7 +171,9 @@ const min = (key, values, param, message, filedList, cb) => {
   try {
     const formValue = getInputsForValidateFn(values, key);
     if (formValue && formValue.length < param) {
-      cb(message);
+      let newMessage = message;
+      newMessage = newMessage.replace(':min', param);
+      cb(newMessage);
     } else {
       cb(null, true);
     }

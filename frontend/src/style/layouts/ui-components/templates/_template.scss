@@ -28,3 +28,21 @@
     padding-top: 100px;
   }
 }
+
+.pageLoader {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $lightGrayColor;
+  width: 100%;
+  position: fixed;
+  z-index: 99999999999999999;
+
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    color: $purple !important;
+  }
+}

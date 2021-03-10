@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-09 10:19:05
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 10:19:28
+ * @Last Modified time: 2021-03-10 21:17:59
  */
 
 /**
@@ -18,9 +18,9 @@ const baseTemplate = {
       dark: '#4466f2',
     },
     secondary: {
-      light: '#4466f2',
-      main: '#4466f2',
-      dark: '#4466f2',
+      light: '#DC3545',
+      main: '#DC3545',
+      dark: '#DC3545',
     },
   },
 };

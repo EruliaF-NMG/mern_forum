@@ -1,13 +1,169 @@
 import React, { Fragment, useState } from 'react';
-import { UICard, VariableToComponent } from '../common/BaseElements';
-import { InputButton } from '../form/Button';
+import {
+  emptyFun,
+  UICard,
+  VariableToComponent,
+  CircleLoaderElement,
+} from '../common/BaseElements';
+import { InputButton, FormWrapper, InputButtonWithState } from '../form';
 import { useForumState } from '../../../hooks/common-hooks/useForum.hook';
+import { getDataByFormObject } from '../../../../helpers/common-helpers/common.helpers';
+
+const PagingWrapper = ({ pagingObject = {}, requestAPIDataFn = emptyFun }) => {
+  return (
+    <UICard elementStyle={'pagingWrapper'}>
+      <InputButton
+        btnText="First Page"
+        startIcon="mdi mdi-page-first"
+        isBtnDisabled={pagingObject.current_page === 1 ? true : false}
+        onClickBtnFn={() => requestAPIDataFn('next', 1)}
+      />
+      <InputButton
+        btnText="Previous"
+        startIcon="mdi mdi-chevron-left"
+        isBtnDisabled={pagingObject.current_page - 1 === 0 ? true : false}
+        onClickBtnFn={() =>
+          requestAPIDataFn('next', pagingObject.current_page - 1)
+        }
+      />
+      <select
+        className="defaultMarginRight"
+        value={pagingObject.page_size}
+        onChange={(event) => requestAPIDataFn('pageSize', event.target.value)}
+      >
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+      </select>
+
+      <InputButton
+        btnText="Next"
+        endIcon="mdi mdi-chevron-right"
+        isBtnDisabled={
+          pagingObject.current_page + 1 > pagingObject.page_count ? true : false
+        }
+        onClickBtnFn={() =>
+          requestAPIDataFn('next', pagingObject.current_page + 1)
+        }
+      />
+      <InputButton
+        btnText="Last Page"
+        endIcon="mdi mdi-page-last"
+        isBtnDisabled={
+          pagingObject.page_count === null
+            ? true
+            : pagingObject.page_count === pagingObject.current_page
+            ? true
+            : false
+        }
+        onClickBtnFn={() => requestAPIDataFn('next', pagingObject.page_count)}
+      />
+    </UICard>
+  );
+};
+
+const SearchFromWrapper = ({
+  forumKey = '',
+  defaultSearchFormObject = {},
+  searchComponent = () => <Fragment></Fragment>,
+  setforumStateFn = emptyFun,
+  forumState = {},
+  requestAPIDataFn = emptyFun,
+}) => {
+  return (
+    <UICard elementStyle="formWrapperCard defaultMarginBottom">
+      <FormWrapper
+        elementStyle="formWrapper"
+        setGroupName={`${forumKey}_search`}
+        formGroupLinkWith={forumKey}
+        setFormObject={defaultSearchFormObject}
+      >
+        <div className="row fullWidthDiv">
+          <VariableToComponent
+            component={searchComponent}
+            props={{
+              formKey: `${forumKey}_search`,
+            }}
+          />
+        </div>
+
+        <div className="fullWidthDiv buttonWrapper">
+          <InputButtonWithState
+            btnText="Search"
+            startIcon="fas fa-search"
+            elementWrapperStyle={'defaultMarginRight'}
+            formGroupName={`${forumKey}_search`}
+            onClickBtnFn={(event) => {
+              setforumStateFn({
+                ...forumState,
+                formObject: getDataByFormObject(event.formObject || {}),
+              });
+              requestAPIDataFn('searchFrom', event.formObject || {});
+            }}
+          />
+          <InputButtonWithState
+            btnText="Reset"
+            startIcon="fas fa-sync-alt"
+            elementWrapperStyle={'refreshBtn'}
+            formGroupName={`${forumKey}_search`}
+            mergeToForm={defaultSearchFormObject}
+            onClickBtnFn={(event) => {
+              setforumStateFn({
+                ...forumState,
+                formObject: defaultSearchFormObject,
+              });
+              requestAPIDataFn('searchFrom', defaultSearchFormObject);
+            }}
+          />
+        </div>
+      </FormWrapper>
+    </UICard>
+  );
+};
+
+const CardBodyWrapper = ({
+  tableBody = [],
+  cardBody = () => <Fragment></Fragment>,
+  cardAction = () => <Fragment></Fragment>,
+}) => {
+  return (
+    <Fragment>
+      {tableBody.map((item, index) => {
+        return (
+          <UICard elementStyle={'detailWrapper'}>
+            <VariableToComponent
+              component={cardBody}
+              props={{
+                row: item,
+                key: index,
+              }}
+            />
+            <div className="actionWrapper defaultPaddingTop">
+              <VariableToComponent
+                component={cardAction}
+                props={{
+                  row: item,
+                  key: index,
+                }}
+              />
+            </div>
+          </UICard>
+        );
+      })}
+    </Fragment>
+  );
+};
 
 const ForumWrapper = ({
   heading = 'Recent Posts',
   apiUrl = null,
   forumKey = '',
+  isSetSearchFrom = true,
+  defaultSearchFormObject = {},
+  searchComponent = () => <Fragment></Fragment>,
   cardBody = () => <Fragment></Fragment>,
+  cardAction = () => <Fragment></Fragment>,
 }) => {
   const [
     responseUpdateStatus,
@@ -41,48 +197,50 @@ const ForumWrapper = ({
         </div>
       </div>
 
-      {forumState.isShowSearch === true ? <div>Filter</div> : null}
+      <Fragment>
+        {forumState.isShowSearch === true && isSetSearchFrom === true ? (
+          <SearchFromWrapper
+            forumKey={forumKey}
+            defaultSearchFormObject={defaultSearchFormObject}
+            searchComponent={searchComponent}
+            setforumStateFn={setforumStateFn}
+            forumState={forumState}
+            requestAPIDataFn={requestAPIDataFn}
+          />
+        ) : null}
+      </Fragment>
 
-      {tableBody.map((item, index) => {
-        return (
-          <UICard elementStyle={'detailWrapper'}>
-            <VariableToComponent
-              component={cardBody}
-              props={{
-                row: item,
-                key: index,
-              }}
-            />
-            <div className="actionWrapper defaultPaddingTop">
-              <InputButton btnText="View More" />
-              <InputButton btnText="Edit" />
-            </div>
-          </UICard>
-        );
-      })}
-      <UICard elementStyle={'detailWrapper'}>
-        <h6 className="border-bottom pb-2 mb-0">Recent updates</h6>
-        <p className="defaultPaddingTopBottom border-bottom">
-          asdasdasd sadasdasd sdasdasd sadasdasd sDASDFASDF SADASDASD...
-        </p>
-        <div className="actionWrapper defaultPaddingTop">
-          <InputButton btnText="View More" />
-          <InputButton btnText="Edit" />
-        </div>
-      </UICard>
-
-      <UICard elementStyle={'pagingWrapper'}>
-        <InputButton btnText="First Page" startIcon="mdi mdi-page-first" />
-        <InputButton btnText="Previous" startIcon="mdi mdi-chevron-left" />
-        <select className="defaultMarginRight">
-          <option>10</option>
-          <option>15</option>
-          <option>20</option>
-          <option>25</option>
-        </select>
-        <InputButton btnText="Next" endIcon="mdi mdi-chevron-right" />
-        <InputButton btnText="Last Page" endIcon="mdi mdi-page-last" />
-      </UICard>
+      <Fragment>
+        {apiUrl &&
+        (responseFetchingStatus === 'init' ||
+          responseFetchingStatus === undefined) ? (
+          <div className="fullWidthDiv defaultMarginTopBottom">
+            <center>
+              <CircleLoaderElement />
+            </center>
+          </div>
+        ) : (
+          <Fragment>
+            {responseFetchingStatus === 'error' || tableBody.length === 0 ? (
+              <div className="fullWidthDiv defaultMarginTopBottom">
+                No result found
+              </div>
+            ) : (
+              <Fragment>
+                <CardBodyWrapper
+                  tableBody={tableBody}
+                  cardBody={cardBody}
+                  cardAction={cardAction}
+                />
+                <PagingWrapper
+                  pagingObject={pagingObject}
+                  requestAPIDataFn={requestAPIDataFn}
+                />
+              </Fragment>
+            )}
+          </Fragment>
+        )}
+      </Fragment>
     </div>
   );
 };

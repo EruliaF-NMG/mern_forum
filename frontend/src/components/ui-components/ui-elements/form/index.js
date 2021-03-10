@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-03-20 14:36:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 22:04:45
+ * @Last Modified time: 2021-03-10 15:46:56
  */
 
 import { formCacheLevel } from '../../../../config/template.config';
@@ -36,6 +36,7 @@ import {
   SelectBoxMemo,
   MultipleSelectBox,
 } from './SelectBox';
+import { InputTag, InputTagMemo, InputTagWithState } from './InputTag';
 
 export {
   //configs
@@ -78,4 +79,7 @@ export {
   SelectBoxWithState,
   MultipleSelectBox,
   //SelectBox
+  InputTag,
+  InputTagMemo,
+  InputTagWithState,
 };

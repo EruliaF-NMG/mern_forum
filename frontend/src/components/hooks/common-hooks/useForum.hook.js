@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-05-23 09:42:17
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 23:21:50
+ * @Last Modified time: 2021-03-10 09:23:30
  */
 import { useMemo, useContext, useEffect, useCallback, useState } from 'react';
 import { CoreContext } from '../../modules/core/context-providers/CoreContext.provider';
@@ -87,17 +87,30 @@ const useForumState = (apiUrl = null, forumKey = '') => {
         if (type === 'next') {
           getDataUrl = `${apiUrl}${
             apiUrl.includes('?') === true ? '&' : '?'
-          }${generateQueryString(data, forumState.formObject)}`;
+          }${generateQueryString(
+            data,
+            forumState.formObject,
+            _pagingObject.page_size
+          )}`;
         } else if (type === 'searchFrom') {
           getDataUrl = `${apiUrl}${
             apiUrl.includes('?') === true ? '&' : '?'
-          }${generateQueryString(1, data)}`;
+          }${generateQueryString(1, data, _pagingObject.page_size)}`;
         } else if (type === 'none') {
           getDataUrl = `${apiUrl}${
             apiUrl.includes('?') === true ? '&' : '?'
           }${generateQueryString(
             _pagingObject.current_page,
-            forumState.formObject
+            forumState.formObject,
+            _pagingObject.page_size
+          )}`;
+        } else if (type === 'pageSize') {
+          getDataUrl = `${apiUrl}${
+            apiUrl.includes('?') === true ? '&' : '?'
+          }${generateQueryString(
+            1,
+            forumState.formObject,
+            _pagingObject.page_size
           )}`;
         }
 

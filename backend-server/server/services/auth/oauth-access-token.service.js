@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:06:03
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 14:59:16
+ * @Last Modified time: 2021-03-10 22:06:04
  */
 
 import jwt from 'jsonwebtoken';
@@ -38,6 +38,9 @@ class OauthAccessTokenService extends CoreService {
               {
                 // eslint-disable-next-line no-underscore-dangle
                 token: tokens._id,
+                // eslint-disable-next-line no-underscore-dangle
+                userID: userObject._id,
+                name: `${userObject.first_name} ${userObject.last_name}`,
               },
               salt,
               { expiresIn: tokenLife }

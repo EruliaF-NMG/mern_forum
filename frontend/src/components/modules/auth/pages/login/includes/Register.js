@@ -47,7 +47,7 @@ const Register = (props) => {
             btnText="Register"
             formGroupName={registerKey}
             isFullWidth={true}
-            isValidate={false}
+            isValidate={true}
             flashMessages={{
               success: {
                 status: true,

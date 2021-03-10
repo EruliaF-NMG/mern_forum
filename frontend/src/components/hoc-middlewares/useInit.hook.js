@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-03-27 12:52:11
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 11:47:57
+ * @Last Modified time: 2021-03-10 22:11:37
  */
 import { useContext, useEffect, useState } from 'react';
 
@@ -34,7 +34,7 @@ const useInit = (routeKey) => {
     }
   }, []);
 
-  return [initState, authStatus.isAuthenticated];
+  return [initState, authStatus.isAuthenticated, authStatus.authUser];
 };
 
 export default useInit;

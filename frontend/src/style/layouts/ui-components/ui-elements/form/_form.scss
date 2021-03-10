@@ -1,0 +1,22 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2021-03-10 16:08:41 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2021-03-10 16:15:21
+ */
+
+.defaultTagWrapper {
+  @extend .fullWidthDiv;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .showTags {
+    @extend .fullWidthDiv;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    span {
+      margin-right: 5px;
+      padding: 5px !important;
+    }
+  }
+}

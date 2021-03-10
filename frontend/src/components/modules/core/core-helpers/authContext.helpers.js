@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-03-21 09:25:21
  * @Last Modified by: Sujith
- * @Last Modified time: 2021-03-09 18:48:56
+ * @Last Modified time: 2021-03-10 22:05:42
  * @Last Modified by: Nisal Madusanka(EruliaF)
  */
 
@@ -33,13 +33,11 @@ const setTokensFn = (dispatch, tokenObject) => {
 
   const userData = JSON.parse(atob(tokenObject.access_token.split('.')[1]));
   setAuthUserFn(dispatch, {
-    id: userData.sub,
+    id: userData.userID,
     name: userData.name,
     avatar: userData.avatar,
-    organizations: userData.organizations,
     roles: userData.roles,
     permissions: userData.permissions,
-    authUserId: userData.auth_user_id,
   });
 };
 

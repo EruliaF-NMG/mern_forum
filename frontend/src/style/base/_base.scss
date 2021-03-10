@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2021-03-09 09:56:59 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 13:16:54
+ * @Last Modified time: 2021-03-10 20:03:03
  */
 
 .initclass {
@@ -267,4 +267,16 @@ table {
 
 h1 {
   font-size: $defaultH1;
+}
+
+h2 {
+  font-size: $defaultH2;
+}
+
+h3 {
+  font-size: $defaultH3;
+}
+
+.pointer {
+  cursor: pointer;
 }

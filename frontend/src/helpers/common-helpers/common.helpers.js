@@ -3,7 +3,7 @@
  * @Description: Common Helpers
  * @Date: 2020-02-18 12:25:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 10:21:56
+ * @Last Modified time: 2021-03-10 09:20:53
  */
 
 import { _unset, _get, _findindex } from './lodash.wrappers';
@@ -63,12 +63,10 @@ const sortObjectToQueryString = ({ ...formObject }) => {
   return queryString ? `sort_by=${queryString}` : queryString;
 };
 
-const generateQueryString = (requestPage = 1, formData = {}, sortData = {}) => {
-  let url = `page=${requestPage}`;
+const generateQueryString = (requestPage = 1, formData = {}, pageSize = 10) => {
+  let url = `page=${requestPage}&page-size=${pageSize}`;
   const searchFormStr = fromObjectToQueryString(getDataByFormObject(formData));
-  const sortStr = sortObjectToQueryString(getDataByFormObject(sortData));
   url = searchFormStr ? `${url}&${searchFormStr}` : url;
-  url = sortStr ? `${url}&${sortStr}` : url;
   return url;
 };
 
