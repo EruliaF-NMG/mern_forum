@@ -2,8 +2,10 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:37:53
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 19:48:00
+ * @Last Modified time: 2021-03-11 21:26:55
  */
+import fs from 'fs';
+import mongoose from 'mongoose';
 
 import userService from '../../../services/user/user.service';
 import {
@@ -17,6 +19,9 @@ import {
   notFoundResponse,
   exceptionOccurredResponse,
 } from '../../../config/api-response.config';
+
+import { uploadImage, getImage } from '../../../helpers/gird-fs/manageUploads';
+import { sendFileToResponce } from '../../../helpers/gird-fs/grid-fs';
 
 const create = (req, res) => {
   userService.createUser(req.validatedFromObject, (error, user) => {
@@ -125,4 +130,114 @@ const getAllUsers = (req, res) => {
   });
 };
 
-export default { create, update, getUserByID, getCurrentUser, getAllUsers };
+const uploadProfilePic = (req, res) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const userID = req.currentUser._id;
+  uploadImage(userID, req.file, (error) => {
+    if (error) {
+      return res
+        .status(failedPostResponse.httpStatus)
+        .json(
+          generateErrorResponseFn(
+            failedPostResponse,
+            error,
+            'User File Upload Failed'
+          )
+        );
+    }
+    return res
+      .status(successPostResponse.httpStatus)
+      .json(
+        generateResponseFn(
+          successPostResponse,
+          req.currentUser,
+          'User File Upload successfully'
+        )
+      );
+  });
+};
+
+const getUserProfileImage = (req, res, next) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const userID = req.currentUser._id;
+  getImage(userID, (error, file) => {
+    if (error) {
+      next();
+    }
+    if (file) {
+      res.header('Content-Length', file.length);
+      res.header('Content-Type', file.contentType);
+      sendFileToResponce(userID, res, (fileError) => {
+        if (fileError) {
+          next();
+        }
+      });
+    } else {
+      next();
+    }
+  });
+};
+
+const defaultProfileImage = (req, res) => {
+  res.header('Content-Type', 'image/png');
+  fs.ReadStream('./assets/default-profile-img.png')
+    .pipe(res)
+    .on('error', (error) =>
+      res
+        .status(exceptionOccurredResponse.httpStatus)
+        .json(
+          generateErrorResponseFn(
+            exceptionOccurredResponse,
+            error,
+            'File Not Fonnd'
+          )
+        )
+    );
+};
+
+const setRoles = (req, res) => {
+  const user = req.currentUser;
+
+  user.roles = req.validatedFromObject.roles.map((value) =>
+    mongoose.Types.ObjectId(value)
+  );
+
+  user.updated_at = Date.now();
+  // eslint-disable-next-line no-underscore-dangle
+  user.updated_by = req.authUser._id;
+
+  user.save((error, userObject) => {
+    if (error) {
+      return res
+        .status(failedPostResponse.httpStatus)
+        .json(
+          generateErrorResponseFn(
+            failedPostResponse,
+            error,
+            'User update Failed'
+          )
+        );
+    }
+    return res
+      .status(successPostResponse.httpStatus)
+      .json(
+        generateResponseFn(
+          successPostResponse,
+          userObject,
+          'User update successfully'
+        )
+      );
+  });
+};
+
+export default {
+  create,
+  update,
+  getUserByID,
+  getCurrentUser,
+  getAllUsers,
+  uploadProfilePic,
+  getUserProfileImage,
+  defaultProfileImage,
+  setRoles,
+};

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 13:21:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 14:58:44
+ * @Last Modified time: 2021-03-11 22:24:32
  */
 
 import jwt from 'jsonwebtoken';
@@ -36,8 +36,22 @@ const isAuth = (req, res, next) => {
         if (error || !tokenObj) {
           return res.status(400).send('Unauthorized');
         }
+        const { user } = tokenObj;
 
-        req.authUser = tokenObj.user;
+        const roleList = user.roles.map((value) => value.code);
+        const authPermissions = [];
+        user.roles.map((role) =>
+          role.permissions.map((permission) => {
+            if (authPermissions.indexOf(permission.code) === -1) {
+              authPermissions.push(permission.code);
+            }
+            return permission.code;
+          })
+        );
+
+        req.authUser = user;
+        req.authRoles = roleList;
+        req.authPermissions = authPermissions;
         next();
       }
     );

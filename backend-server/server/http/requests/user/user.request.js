@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 18:17:23
+ * @Last Modified time: 2021-03-11 21:27:04
  */
 
 import validate from '../../../helpers/validation';
@@ -106,4 +106,42 @@ const updateUserValidate = (req, res, next) => {
     });
 };
 
-export { createUserValidate, updateUserValidate };
+/**
+ * @author Nisal Madusanka(EruliaF)
+ * @description validate create Client API
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ * @param {Function} next express request pass to next
+ */
+const setRolesValidate = (req, res, next) => {
+  const formData = {
+    roles: get(req.body, 'roles', []),
+  };
+
+  validate(formData)
+    .setFileds({
+      roles: 'Roles',
+    })
+    .setRules({
+      roles: 'required',
+    })
+    .setMessage({})
+    // eslint-disable-next-line consistent-return
+    .run((error) => {
+      if (error) {
+        return res
+          .status(badResponse.httpStatus)
+          .send(
+            generateErrorResponseFn(
+              badResponse,
+              error,
+              'Validation error occurred, while updating new Role'
+            )
+          );
+      }
+      req.validatedFromObject = formData;
+      next();
+    });
+};
+
+export { createUserValidate, updateUserValidate, setRolesValidate };

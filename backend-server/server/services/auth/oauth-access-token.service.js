@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:06:03
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-10 22:06:04
+ * @Last Modified time: 2021-03-11 22:40:19
  */
 
 import jwt from 'jsonwebtoken';
@@ -33,6 +33,17 @@ class OauthAccessTokenService extends CoreService {
             return cb(createTokenerror);
           }
 
+          const roleList = userObject.roles.map((role) => role.code);
+          const authPermissions = [];
+          userObject.roles.map((role) =>
+            role.permissions.map((permission) => {
+              if (authPermissions.indexOf(permission.code) === -1) {
+                authPermissions.push(permission.code);
+              }
+              return permission.code;
+            })
+          );
+
           const response = {
             access_token: jwt.sign(
               {
@@ -41,6 +52,8 @@ class OauthAccessTokenService extends CoreService {
                 // eslint-disable-next-line no-underscore-dangle
                 userID: userObject._id,
                 name: `${userObject.first_name} ${userObject.last_name}`,
+                permissions: authPermissions,
+                roles: roleList,
               },
               salt,
               { expiresIn: tokenLife }
@@ -105,11 +118,24 @@ class OauthAccessTokenService extends CoreService {
       .populate({
         path: 'user',
         model: 'User',
-        select: '_id first_name last_name email profile status',
+        select: '_id first_name last_name email profile status roles',
+        populate: [
+          {
+            path: 'roles',
+            model: 'Role',
+            select: '_id name code permissions',
+            populate: [
+              {
+                path: 'permissions',
+                model: 'Permission',
+                select: '_id name code',
+              },
+            ],
+          },
+        ],
       })
       // eslint-disable-next-line consistent-return
       .exec((error, accessToken) => {
-        console.log(error);
         if (error) {
           return cb(error);
         }

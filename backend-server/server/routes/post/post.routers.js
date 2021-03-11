@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 21:28:10
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 23:07:37
+ * @Last Modified time: 2021-03-11 21:33:09
  */
 import express from 'express';
 
@@ -16,7 +16,7 @@ import isAuth from '../../http/middleware/auth/isauth.middleware';
 
 const router = express.Router();
 
-router.route('/posts').post(createPostValidate, postController.create);
+router.route('/posts').post(isAuth, createPostValidate, postController.create);
 router.route('/posts').get(isAuth, postController.getAll);
 router
   .route('/posts/:postID')

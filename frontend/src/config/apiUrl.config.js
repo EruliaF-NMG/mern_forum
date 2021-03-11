@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-03-21 15:02:30
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-10 22:17:42
+ * @Last Modified time: 2021-03-11 19:16:59
  */
 
 import { apiBaseURL } from './core.config';
@@ -15,6 +15,16 @@ export const authAPI = {
 export const registerAPI = {
   url: `${apiBaseURL}users`,
   key: 'createUserKey',
+};
+
+export const getUserProfileImgAPI = {
+  url: `${apiBaseURL}get-user-image/`,
+  key: 'getUserProfileImgAPIKey',
+};
+
+export const setUserProfileImgAPI = {
+  url: `${apiBaseURL}set-user-image/`,
+  key: 'setUserProfileImgAPIKey',
 };
 
 export const getAllPostAPI = {

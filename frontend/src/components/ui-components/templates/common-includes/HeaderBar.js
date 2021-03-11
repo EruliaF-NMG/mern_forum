@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import { getUserProfileImgAPI } from '../../../../config/apiUrl.config';
+import { AuthContext } from '../../../modules/core/context-providers/AuthContext.provider';
+
 const HeaderBar = () => {
+  const [authState] = useContext(AuthContext);
   return (
     <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
       <div className="container-fluid">
@@ -36,8 +40,11 @@ const HeaderBar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item ">
                 <Link className="profilePicWrapper">
-                  <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
-                  <span className="nav-link">Nisal Madusanka</span>
+                  <img
+                    alt="pro-pic"
+                    src={`${getUserProfileImgAPI.url}${authState.authUser.id}`}
+                  />
+                  <span className="nav-link">{authState.authUser.name}</span>
                 </Link>
               </li>
             </ul>

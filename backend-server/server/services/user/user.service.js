@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:33:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 13:08:39
+ * @Last Modified time: 2021-03-11 22:35:11
  */
 
 import CoreService from '../core-service';
@@ -15,12 +15,26 @@ class UserService extends CoreService {
   }
 
   checkUser(userObject, cb) {
-    this.findOne(
-      {
+    this.model
+      .findOne({
         email: userObject.email,
-      },
+      })
+      .populate([
+        {
+          path: 'roles',
+          model: 'Role',
+          select: '_id name code permissions',
+          populate: [
+            {
+              path: 'permissions',
+              model: 'Permission',
+              select: '_id name code',
+            },
+          ],
+        },
+      ])
       // eslint-disable-next-line consistent-return
-      (error, user) => {
+      .exec((error, user) => {
         if (error) {
           return cb(error);
         }
@@ -28,8 +42,7 @@ class UserService extends CoreService {
           return cb('Unauthorized');
         }
         cb(null, user);
-      }
-    );
+      });
   }
 
   authUser(userObject = {}, cb) {

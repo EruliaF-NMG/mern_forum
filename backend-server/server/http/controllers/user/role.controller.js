@@ -2,9 +2,9 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 17:53:16
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 18:36:38
+ * @Last Modified time: 2021-03-11 20:48:09
  */
-
+import mongoose from 'mongoose';
 import roleService from '../../../services/user/role.service';
 import {
   generateResponseFn,
@@ -125,4 +125,46 @@ const getAll = (req, res) => {
   });
 };
 
-export default { create, update, getRoleByID, getCurrentRole, getAll };
+const setPermissions = (req, res) => {
+  const role = req.currentRole;
+
+  role.permissions = req.validatedFromObject.permissions.map((value) =>
+    mongoose.Types.ObjectId(value)
+  );
+
+  role.updated_at = Date.now();
+  // eslint-disable-next-line no-underscore-dangle
+  role.updated_by = req.authUser._id;
+
+  role.save((error, roleObj) => {
+    if (error) {
+      return res
+        .status(failedPostResponse.httpStatus)
+        .json(
+          generateErrorResponseFn(
+            failedPostResponse,
+            error,
+            'Role update Failed'
+          )
+        );
+    }
+    return res
+      .status(successPostResponse.httpStatus)
+      .json(
+        generateResponseFn(
+          successPostResponse,
+          roleObj,
+          'Role update successfully'
+        )
+      );
+  });
+};
+
+export default {
+  create,
+  update,
+  getRoleByID,
+  getCurrentRole,
+  setPermissions,
+  getAll,
+};
