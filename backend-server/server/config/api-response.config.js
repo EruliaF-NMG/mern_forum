@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:39:18
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 13:55:32
+ * @Last Modified time: 2021-03-12 09:47:05
  */
 
 const successGetResponse = {
@@ -37,7 +37,7 @@ const unauthorizedResponse = {
 
 const badResponse = {
   code: 'VALIDATION_ERROR',
-  message: 'validation fired occurs during execution',
+  message: 'validation fired during execution',
   httpStatus: 400,
 };
 

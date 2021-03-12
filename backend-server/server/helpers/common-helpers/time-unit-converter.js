@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 10:55:42
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 11:07:19
+ * @Last Modified time: 2021-03-12 11:29:18
  */
 
 /**
@@ -17,6 +17,10 @@ const dateObjectToString = (date, format = 'yyyy-mm-dd') => {
       return `${dateObject.getFullYear()}-${(dateObject.getMonth() + 1)
         .toString()
         .padStart(2, '0')}-${dateObject.getDate().toString().padStart(2, '0')}`;
+    case 'yyyy_mm_dd':
+      return `${dateObject.getFullYear()}_${(dateObject.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}_${dateObject.getDate().toString().padStart(2, '0')}`;
     case 'h:i a':
       // eslint-disable-next-line no-case-declarations
       let hours = dateObject.getHours();

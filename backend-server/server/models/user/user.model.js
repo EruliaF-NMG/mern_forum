@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:31:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 17:38:26
+ * @Last Modified time: 2021-03-12 13:38:36
  */
 
 import mongoose from 'mongoose';
@@ -10,9 +10,6 @@ import bcrypt from 'bcrypt';
 import { userStatus } from '../../config/database-status';
 
 const profileSchema = new mongoose.Schema({
-  avata: {
-    type: mongoose.Schema.ObjectId,
-  },
   about: {
     type: String,
     trim: true,

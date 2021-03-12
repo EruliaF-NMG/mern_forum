@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 17:26:32
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-05 19:54:15
+ * @Last Modified time: 2021-03-12 12:07:00
  */
 
 import dotenv from 'dotenv';
@@ -11,6 +11,8 @@ import path from 'path';
 import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
+import { logger } from '../helpers/common-helpers/logs';
 
 dotenv.config();
 
@@ -24,6 +26,12 @@ app.use(express.json());
 app.use(compress());
 // use helmet
 app.use(helmet());
+// log all request
+app.use(
+  morgan('combined', {
+    stream: logger.stream,
+  })
+);
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 app.use('/public', express.static(path.join(CURRENT_WORKING_DIR, 'public')));

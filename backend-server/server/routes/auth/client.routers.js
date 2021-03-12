@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 22:16:12
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 22:21:03
+ * @Last Modified time: 2021-03-12 13:06:40
  */
 
 import express from 'express';
@@ -35,14 +35,29 @@ const router = express.Router();
  *      schema:
  *       $ref: '#/definitions/ClientCreateObject'
  *   responses:
- *    200:
+ *    201:
  *     description: newly created Client object
  *     content:
  *       application/json:
  *         schema:
- *           $ref: '#/definitions/ClientResponseObject'
- *    500:
- *     description: failure in creating employee
+ *          type: object
+ *          properties:
+ *            meta:
+ *                $ref: '#/definitions/SuccessPostResponse'
+ *            data:
+ *                $ref: '#/definitions/ClientObject'
+ *    400:
+ *     description: validation Errors
+ *     content:
+ *       application/json:
+ *         schema:
+ *          $ref: '#/definitions/BadResponse'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
  */
 router.route('/clients').post(createClientValidate, clientController.create);
 

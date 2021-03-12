@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:37:53
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 21:26:55
+ * @Last Modified time: 2021-03-12 14:33:17
  */
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -93,7 +93,6 @@ const getCurrentUser = (req, res) => {
 
 const getUserByID = (req, res, next, id) => {
   userService.findByID(id, (error, user) => {
-    console.log(error);
     if (error) {
       return res
         .status(notFoundResponse.httpStatus)
