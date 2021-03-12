@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 19:24:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 11:11:14
+ * @Last Modified time: 2021-03-12 21:13:50
  */
 
 import postService from '../../../services/post/post.service';
@@ -16,6 +16,8 @@ import {
   failedPostResponse,
   notFoundResponse,
   exceptionOccurredResponse,
+  successDeleteResponse,
+  failedDeleteResponse,
 } from '../../../config/api-response.config';
 import { postStatus } from '../../../config/database-status';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
@@ -133,24 +135,24 @@ const deletePost = (req, res) => {
   postService.updatePost(
     get(req, 'currentPost._id', null),
     formObject,
-    (error, post) => {
+    (error) => {
       if (error) {
         return res
-          .status(failedPostResponse.httpStatus)
+          .status(failedDeleteResponse.httpStatus)
           .json(
             generateErrorResponseFn(
-              failedPostResponse,
+              failedDeleteResponse,
               error,
               'unable to remove post'
             )
           );
       }
       return res
-        .status(successPostResponse.httpStatus)
+        .status(successDeleteResponse.httpStatus)
         .json(
           generateResponseFn(
-            successPostResponse,
-            post,
+            successDeleteResponse,
+            {},
             'post removed successfully'
           )
         );

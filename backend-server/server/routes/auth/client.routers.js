@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 22:16:12
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 13:06:40
+ * @Last Modified time: 2021-03-12 21:38:18
  */
 
 import express from 'express';
@@ -25,7 +25,7 @@ const router = express.Router();
  *       example: 'application/json'
  *  post:
  *   tags:
- *       - Master Apis
+ *       - Auth Client Apis
  *   summary: create api Client
  *   description: create api client for access apis
  *   responseClass: Client

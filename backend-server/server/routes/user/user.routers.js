@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:57:05
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 15:43:51
+ * @Last Modified time: 2021-03-12 21:57:23
  */
 
 import express from 'express';
@@ -31,7 +31,7 @@ const router = express.Router();
  *       example: 'application/json'
  *  post:
  *   tags:
- *       - User Management Apis
+ *       - User Manage Apis
  *   summary: Create User
  *   description: api for create new user
  *   responseClass: User
@@ -87,7 +87,7 @@ router.route('/users').post(createUserValidate, userController.create);
  *   security:
  *      - bearerAuth: []
  *   tags:
- *      - User Management Apis
+ *      - User Manage Apis
  *   summary: Edit User
  *   description: Edit api for edit user
  *   responseClass: USer
@@ -151,7 +151,7 @@ router
  *   security:
  *      - bearerAuth: []
  *   tags:
- *       - User Management Apis
+ *       - User Manage Apis
  *   summary: Get User By ID
  *   description: get user information by user id
  *   responseClass: User
@@ -167,12 +167,6 @@ router
  *                $ref: '#/definitions/SuccessGetResponse'
  *            data:
  *                $ref: '#/definitions/UserObject'
- *    400:
- *     description: validation Errors
- *     content:
- *       application/json:
- *         schema:
- *          $ref: '#/definitions/BadResponse'
  *    401:
  *     description: Unauthorized User
  *     content:
@@ -211,7 +205,7 @@ router.route('/users').get(isAuth, userController.getAllUsers);
  *   security:
  *      - bearerAuth: []
  *   tags:
- *       - User Management Apis
+ *       - User Manage Apis
  *   summary: Upload User Profile Image
  *   description: Upload User Profile Image
  *   responseClass: User
@@ -281,7 +275,7 @@ router
  *       example: '<User-ID>'
  *  get:
  *   tags:
- *       - User Management Apis
+ *       - User Manage Apis
  *   summary: Get User Profile Image By ID
  *   description: Get User Profile Image By ID
  *   responseClass: User
@@ -324,7 +318,7 @@ router
  *   security:
  *      - bearerAuth: []
  *   tags:
- *      - User Management Apis
+ *      - User Manage Apis
  *   summary: Set Roles to user
  *   description: Set Roles to user
  *   responseClass: User
@@ -334,6 +328,11 @@ router
  *      schema:
  *        type: object
  *        properties:
+ *          roles:
+ *            items:
+ *              properties:
+ *              type: string;
+ *              example: '604a2c35675e504b423ec243'
  *   responses:
  *    200:
  *     description: Roles successfully assigned to user

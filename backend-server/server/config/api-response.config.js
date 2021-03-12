@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:39:18
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 09:47:05
+ * @Last Modified time: 2021-03-12 21:12:28
  */
 
 const successGetResponse = {
@@ -26,6 +26,18 @@ const failedPostResponse = {
 const successPutResponse = {
   code: 'SUCCESSFULLY_UPDATED',
   message: 'resource updated successfully',
+  httpStatus: 200,
+};
+
+const successDeleteResponse = {
+  code: 'SUCCESSFULLY_DELETED',
+  message: 'resource deleted successfully',
+  httpStatus: 200,
+};
+
+const failedDeleteResponse = {
+  code: 'FAILED_DELETED',
+  message: 'failed to delete resource',
   httpStatus: 200,
 };
 
@@ -62,4 +74,6 @@ export {
   exceptionOccurredResponse,
   badResponse,
   notFoundResponse,
+  successDeleteResponse,
+  failedDeleteResponse,
 };

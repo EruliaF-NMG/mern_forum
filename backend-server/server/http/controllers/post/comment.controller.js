@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 09:29:48
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 10:23:34
+ * @Last Modified time: 2021-03-12 21:29:26
  */
 
 import {
@@ -11,12 +11,9 @@ import {
 } from '../../../helpers/common-helpers/common-methods';
 import {
   successPostResponse,
-  successGetResponse,
   failedPostResponse,
-  notFoundResponse,
-  exceptionOccurredResponse,
 } from '../../../config/api-response.config';
-import { postStatus, commentStatus } from '../../../config/database-status';
+import { commentStatus } from '../../../config/database-status';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 
 const create = (req, res) => {

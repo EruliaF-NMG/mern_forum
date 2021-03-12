@@ -105,3 +105,17 @@
  *     scheme: bearer
  *     bearerFormat: JWT
  */
+
+/**
+ * @swagger
+ * definitions:
+ *  SuccessDeleteResponse:
+ *   type: object
+ *   properties:
+ *    code:
+ *     type: string
+ *     example: 'SUCCESSFULLY_DELETED'
+ *    message:
+ *     type: string
+ *     example: 'resource deleted successfully'
+ */

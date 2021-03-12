@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 21:00:21
+ * @Last Modified time: 2021-03-12 21:40:20
  */
 
 import validate from '../../../helpers/validation';
@@ -20,19 +20,16 @@ const createRoleValidate = (req, res, next) => {
   const formData = {
     name: get(req.body, 'name', ''),
     code: get(req.body, 'code', ''),
-    permissions: get(req.body, 'permissions', []),
   };
 
   validate(formData)
     .setFileds({
       name: 'Role Name',
       code: 'Role Code',
-      permissions: 'Permissions',
     })
     .setRules({
       name: 'required',
       code: 'required',
-      permissions: 'required',
     })
     .setMessage({})
     // eslint-disable-next-line consistent-return
@@ -91,5 +88,4 @@ const setPermissionsValidate = (req, res, next) => {
     });
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export { createRoleValidate, setPermissionsValidate };
