@@ -2,11 +2,12 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 17:26:32
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 12:07:00
+ * @Last Modified time: 2021-03-13 22:01:58
  */
 
 import dotenv from 'dotenv';
 import express from 'express';
+import mongoSanitize from 'express-mongo-sanitize';
 import path from 'path';
 import compress from 'compression';
 import cors from 'cors';
@@ -26,6 +27,8 @@ app.use(express.json());
 app.use(compress());
 // use helmet
 app.use(helmet());
+// sanitize all requests
+app.use(mongoSanitize());
 // log all request
 app.use(
   morgan('combined', {

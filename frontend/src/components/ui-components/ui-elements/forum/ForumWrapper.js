@@ -12,53 +12,65 @@ import { getDataByFormObject } from '../../../../helpers/common-helpers/common.h
 const PagingWrapper = ({ pagingObject = {}, requestAPIDataFn = emptyFun }) => {
   return (
     <UICard elementStyle={'pagingWrapper'}>
-      <InputButton
-        btnText="First Page"
-        startIcon="mdi mdi-page-first"
-        isBtnDisabled={pagingObject.current_page === 1 ? true : false}
-        onClickBtnFn={() => requestAPIDataFn('next', 1)}
-      />
-      <InputButton
-        btnText="Previous"
-        startIcon="mdi mdi-chevron-left"
-        isBtnDisabled={pagingObject.current_page - 1 === 0 ? true : false}
-        onClickBtnFn={() =>
-          requestAPIDataFn('next', pagingObject.current_page - 1)
-        }
-      />
-      <select
-        className="defaultMarginRight"
-        value={pagingObject.page_size}
-        onChange={(event) => requestAPIDataFn('pageSize', event.target.value)}
-      >
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-      </select>
+      <Fragment>
+        <InputButton
+          btnText="First Page"
+          startIcon="mdi mdi-page-first"
+          isBtnDisabled={pagingObject.current_page === 1 ? true : false}
+          onClickBtnFn={() => requestAPIDataFn('next', 1)}
+        />
+        <InputButton
+          btnText="Previous"
+          startIcon="mdi mdi-chevron-left"
+          isBtnDisabled={pagingObject.current_page - 1 === 0 ? true : false}
+          onClickBtnFn={() =>
+            requestAPIDataFn('next', pagingObject.current_page - 1)
+          }
+        />
+        <select
+          className="defaultMarginRight"
+          value={pagingObject.page_size}
+          onChange={(event) => requestAPIDataFn('pageSize', event.target.value)}
+        >
+          <option key={1} value="10">
+            10
+          </option>
+          <option key={2} value="15">
+            15
+          </option>
+          <option key={3} value="20">
+            20
+          </option>
+          <option key={4} value="25">
+            25
+          </option>
+        </select>
 
-      <InputButton
-        btnText="Next"
-        endIcon="mdi mdi-chevron-right"
-        isBtnDisabled={
-          pagingObject.current_page + 1 > pagingObject.page_count ? true : false
-        }
-        onClickBtnFn={() =>
-          requestAPIDataFn('next', pagingObject.current_page + 1)
-        }
-      />
-      <InputButton
-        btnText="Last Page"
-        endIcon="mdi mdi-page-last"
-        isBtnDisabled={
-          pagingObject.page_count === null
-            ? true
-            : pagingObject.page_count === pagingObject.current_page
-            ? true
-            : false
-        }
-        onClickBtnFn={() => requestAPIDataFn('next', pagingObject.page_count)}
-      />
+        <InputButton
+          btnText="Next"
+          endIcon="mdi mdi-chevron-right"
+          isBtnDisabled={
+            pagingObject.current_page + 1 > pagingObject.page_count
+              ? true
+              : false
+          }
+          onClickBtnFn={() =>
+            requestAPIDataFn('next', pagingObject.current_page + 1)
+          }
+        />
+        <InputButton
+          btnText="Last Page"
+          endIcon="mdi mdi-page-last"
+          isBtnDisabled={
+            pagingObject.page_count === null
+              ? true
+              : pagingObject.page_count === pagingObject.current_page
+              ? true
+              : false
+          }
+          onClickBtnFn={() => requestAPIDataFn('next', pagingObject.page_count)}
+        />
+      </Fragment>
     </UICard>
   );
 };
@@ -131,24 +143,28 @@ const CardBodyWrapper = ({
     <Fragment>
       {tableBody.map((item, index) => {
         return (
-          <UICard elementStyle={'detailWrapper'}>
-            <VariableToComponent
-              component={cardBody}
-              props={{
-                row: item,
-                key: index,
-              }}
-            />
-            <div className="actionWrapper defaultPaddingTop">
-              <VariableToComponent
-                component={cardAction}
-                props={{
-                  row: item,
-                  key: index,
-                }}
-              />
-            </div>
-          </UICard>
+          <div key={index}>
+            <UICard elementStyle={'detailWrapper'}>
+              <Fragment>
+                <VariableToComponent
+                  component={cardBody}
+                  props={{
+                    row: item,
+                    key: index,
+                  }}
+                />
+                <div className="actionWrapper defaultPaddingTop">
+                  <VariableToComponent
+                    component={cardAction}
+                    props={{
+                      row: item,
+                      key: index,
+                    }}
+                  />
+                </div>
+              </Fragment>
+            </UICard>
+          </div>
         );
       })}
     </Fragment>

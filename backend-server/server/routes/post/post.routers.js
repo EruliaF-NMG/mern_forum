@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 21:28:10
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 22:03:26
+ * @Last Modified time: 2021-03-13 23:10:50
  */
 import express from 'express';
 
@@ -13,6 +13,9 @@ import {
   statusChangeValidate,
 } from '../../http/requests/post/post.request';
 import isAuth from '../../http/middleware/auth/isauth.middleware';
+import isRole from '../../http/middleware/auth/isRole.middleware';
+import { isPostEditBySameUser } from '../../http/middleware/auth/isAcctionDoneBySameUser.middleware';
+import { roleCodes } from '../../config/database-status';
 
 const router = express.Router();
 /**
@@ -63,9 +66,59 @@ const router = express.Router();
  *          type: string
  *          example: 'Unauthorized'
  */
-router.route('/posts').post(isAuth, createPostValidate, postController.create);
+router
+  .route('/posts')
+  .post(
+    isAuth,
+    isRole(roleCodes.normalUser),
+    createPostValidate,
+    postController.create
+  );
 
-// Todo
+/**
+ * @swagger
+ * /api/posts:
+ *  parameters:
+ *   - name: Content-Type
+ *     in: header
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: 'application/json'
+ *  get:
+ *   security:
+ *      - bearerAuth: []
+ *   tags:
+ *       - Post Manage Apis
+ *   summary: Get Post List
+ *   description: get post information
+ *   responseClass: Post
+ *   responses:
+ *    200:
+ *     description: Post data successfully received
+ *     content:
+ *       application/json:
+ *         schema:
+ *          type: object
+ *          properties:
+ *            meta:
+ *                $ref: '#/definitions/SuccessGetResponse'
+ *            data:
+ *              items:
+ *                $ref: '#/definitions/PostObject'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
+ *    404:
+ *     description: validation Errors
+ *     content:
+ *       application/json:
+ *         schema:
+ *          $ref: '#/definitions/NotFoundResponse'
+ */
 router.route('/posts').get(isAuth, postController.getAll);
 
 /**
@@ -130,7 +183,7 @@ router.route('/posts').get(isAuth, postController.getAll);
  */
 router
   .route('/posts/:postID')
-  .put(isAuth, createPostValidate, postController.update);
+  .put(isAuth, isPostEditBySameUser, createPostValidate, postController.update);
 
 /**
  * @swagger
@@ -232,7 +285,9 @@ router.route('/posts/:postID').get(isAuth, postController.getCurrentPost);
  *         schema:
  *          $ref: '#/definitions/NotFoundResponse'
  */
-router.route('/posts/:postID').delete(isAuth, postController.deletePost);
+router
+  .route('/posts/:postID')
+  .delete(isAuth, isPostEditBySameUser, postController.deletePost);
 
 /**
  * @swagger
@@ -291,7 +346,12 @@ router.route('/posts/:postID').delete(isAuth, postController.deletePost);
  */
 router
   .route('/posts/:postID/:status')
-  .patch(isAuth, statusChangeValidate, postController.updateStatus);
+  .patch(
+    isAuth,
+    isRole(roleCodes.admin),
+    statusChangeValidate,
+    postController.updateStatus
+  );
 
 router.param('postID', postController.getPostByID);
 

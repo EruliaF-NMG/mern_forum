@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:37:53
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 14:33:17
+ * @Last Modified time: 2021-03-13 19:31:15
  */
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -11,6 +11,7 @@ import userService from '../../../services/user/user.service';
 import {
   generateResponseFn,
   generateErrorResponseFn,
+  generatePaginationResponseFn,
 } from '../../../helpers/common-helpers/common-methods';
 import {
   successPostResponse,
@@ -22,6 +23,7 @@ import {
 
 import { uploadImage, getImage } from '../../../helpers/gird-fs/manageUploads';
 import { sendFileToResponce } from '../../../helpers/gird-fs/grid-fs';
+import { BasicRoleID } from '../../../config/database-status';
 
 const create = (req, res) => {
   userService.createUser(req.validatedFromObject, (error, user) => {
@@ -110,7 +112,7 @@ const getUserByID = (req, res, next, id) => {
 };
 
 const getAllUsers = (req, res) => {
-  userService.find({}, (error, users) => {
+  userService.pagination(req.query, (error, usersObject) => {
     if (error) {
       return res
         .status(exceptionOccurredResponse.httpStatus)
@@ -125,7 +127,7 @@ const getAllUsers = (req, res) => {
 
     res
       .status(successGetResponse.httpStatus)
-      .json(generateResponseFn(successGetResponse, users));
+      .json(generatePaginationResponseFn(successGetResponse, usersObject));
   });
 };
 
@@ -229,6 +231,47 @@ const setRoles = (req, res) => {
   });
 };
 
+const statusChange = (req, res) => {
+  const user = req.currentUser;
+  const status = `${req.params.status}`;
+  if (status === '1') {
+    user.roles = [mongoose.Types.ObjectId(BasicRoleID)];
+    user.status = true;
+  } else {
+    user.roles = [];
+    user.status = false;
+  }
+  // eslint-disable-next-line no-underscore-dangle
+  user.updated_by = req.authUser._id;
+
+  user.updated_at = Date.now();
+  // eslint-disable-next-line no-underscore-dangle
+  user.updated_by = req.authUser._id;
+
+  user.save((error, userObject) => {
+    if (error) {
+      return res
+        .status(failedPostResponse.httpStatus)
+        .json(
+          generateErrorResponseFn(
+            failedPostResponse,
+            error,
+            'User update Failed'
+          )
+        );
+    }
+    return res
+      .status(successPostResponse.httpStatus)
+      .json(
+        generateResponseFn(
+          successPostResponse,
+          userObject,
+          'User update successfully'
+        )
+      );
+  });
+};
+
 export default {
   create,
   update,
@@ -239,4 +282,5 @@ export default {
   getUserProfileImage,
   defaultProfileImage,
   setRoles,
+  statusChange,
 };

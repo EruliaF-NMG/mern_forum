@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 13:21:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 22:24:32
+ * @Last Modified time: 2021-03-13 22:11:35
  */
 
 import jwt from 'jsonwebtoken';
@@ -15,7 +15,7 @@ const isAuth = (req, res, next) => {
     get(req, 'headers.x-access-token', undefined) ||
     get(req, 'headers.authorization', undefined);
   if (!token) {
-    return res.status(400).send('Unauthorized');
+    return res.status(401).send('Unauthorized');
   }
 
   if (token.startsWith('Bearer ')) {
@@ -24,7 +24,7 @@ const isAuth = (req, res, next) => {
   }
 
   if (!token) {
-    return res.status(400).send('Unauthorized');
+    return res.status(401).send('Unauthorized');
   }
 
   try {
@@ -34,7 +34,7 @@ const isAuth = (req, res, next) => {
       // eslint-disable-next-line consistent-return
       (error, tokenObj) => {
         if (error || !tokenObj) {
-          return res.status(400).send('Unauthorized');
+          return res.status(401).send('Unauthorized');
         }
         const { user } = tokenObj;
 
@@ -56,7 +56,7 @@ const isAuth = (req, res, next) => {
       }
     );
   } catch (err) {
-    return res.status(400).send('Unauthorized');
+    return res.status(401).send('Unauthorized');
   }
 };
 

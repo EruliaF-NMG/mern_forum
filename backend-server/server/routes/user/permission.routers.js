@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 18:12:20
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 22:02:47
+ * @Last Modified time: 2021-03-13 23:19:11
  */
 
 import express from 'express';
@@ -11,6 +11,8 @@ import permissionController from '../../http/controllers/user/permission.control
 
 import { createPermissionValidate } from '../../http/requests/user/permission.request';
 import isAuth from '../../http/middleware/auth/isauth.middleware';
+import { roleCodes } from '../../config/database-status';
+import isRole from '../../http/middleware/auth/isRole.middleware';
 
 const router = express.Router();
 
@@ -64,10 +66,60 @@ const router = express.Router();
  */
 router
   .route('/permissions')
-  .post(isAuth, createPermissionValidate, permissionController.create);
+  .post(
+    isAuth,
+    isRole(roleCodes.admin),
+    createPermissionValidate,
+    permissionController.create
+  );
 
-// Todo
-router.route('/permissions').get(isAuth, permissionController.getAll);
+/**
+ * @swagger
+ * /api/permissions:
+ *  parameters:
+ *   - name: Content-Type
+ *     in: header
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: 'application/json'
+ *  get:
+ *   security:
+ *      - bearerAuth: []
+ *   tags:
+ *       - Manage Permissions Apis
+ *   summary: Get Permissions List
+ *   description: get all Permissions
+ *   responseClass: Permissions
+ *   responses:
+ *    200:
+ *     description: Permissions data successfully received
+ *     content:
+ *       application/json:
+ *         schema:
+ *          type: object
+ *          properties:
+ *            meta:
+ *                $ref: '#/definitions/SuccessGetResponse'
+ *            data:
+ *              items:
+ *                $ref: '#/definitions/PermissionsObject'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
+ *    404:
+ *     description: validation Errors
+ *     content:
+ *       application/json:
+ *         schema:
+ *          $ref: '#/definitions/NotFoundResponse'
+ */
+router
+  .route('/permissions')
+  .get(isAuth, isRole(roleCodes.admin), permissionController.getAll);
 
 /**
  * @swagger
@@ -131,7 +183,12 @@ router.route('/permissions').get(isAuth, permissionController.getAll);
  */
 router
   .route('/permissions/:permissionsID')
-  .put(isAuth, createPermissionValidate, permissionController.update);
+  .put(
+    isAuth,
+    isRole(roleCodes.admin),
+    createPermissionValidate,
+    permissionController.update
+  );
 
 /**
  * @swagger
@@ -184,7 +241,11 @@ router
  */
 router
   .route('/permissions/:permissionsID')
-  .get(isAuth, permissionController.getCurrentPermission);
+  .get(
+    isAuth,
+    isRole(roleCodes.admin),
+    permissionController.getCurrentPermission
+  );
 
 router.param('permissionsID', permissionController.getPermissionByID);
 

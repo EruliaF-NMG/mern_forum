@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 22:16:12
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 13:00:35
+ * @Last Modified time: 2021-03-13 20:06:14
  */
 
 import express from 'express';
@@ -55,5 +55,39 @@ const router = express.Router();
  *          example: 'Unauthorized'
  */
 router.route('/token').post(loginValidate, authController.token);
+
+/**
+ * @swagger
+ * /api/logout:
+ *  parameters:
+ *   - name: Content-Type
+ *     in: header
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: 'application/json'
+ *  post:
+ *   security:
+ *      - bearerAuth: []
+ *   tags:
+ *       - Auth APIs
+ *   summary: Logout user
+ *   description: Logout user
+ *   responseClass: User
+ *   responses:
+ *    200:
+ *     description: Logout User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Done'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
+ */
+router.route('/logout').post(authController.logout);
 
 export default router;

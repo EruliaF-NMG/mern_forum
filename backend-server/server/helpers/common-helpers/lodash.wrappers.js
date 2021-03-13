@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 13:55:13
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 14:37:03
+ * @Last Modified time: 2021-03-13 22:12:30
  */
 
 import _ from 'lodash';
@@ -29,4 +29,7 @@ const getInt = (object, path, defaultValue) => {
   return Number.isNaN(numberValue) ? defaultValue : numberValue;
 };
 
-export { get, getInt };
+const intersection = (mainArray, subArray) =>
+  _.intersection(mainArray, subArray);
+
+export { get, getInt, intersection };

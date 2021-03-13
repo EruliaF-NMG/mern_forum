@@ -2,11 +2,14 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 21:27:04
+ * @Last Modified time: 2021-03-13 18:26:00
  */
 
 import validate from '../../../helpers/validation';
-import { badResponse } from '../../../config/api-response.config';
+import {
+  badResponse,
+  notFoundResponse,
+} from '../../../config/api-response.config';
 import { generateErrorResponseFn } from '../../../helpers/common-helpers/common-methods';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 /**
@@ -144,4 +147,22 @@ const setRolesValidate = (req, res, next) => {
     });
 };
 
-export { createUserValidate, updateUserValidate, setRolesValidate };
+const statusChangeValidate = (req, res, next) => {
+  const status = `${req.params.status}`;
+  if (status === '1' || status === '0') {
+    next();
+  } else {
+    return res
+      .status(notFoundResponse.httpStatus)
+      .send(
+        generateErrorResponseFn(notFoundResponse, {}, `States should Be 1 or 0`)
+      );
+  }
+};
+
+export {
+  createUserValidate,
+  updateUserValidate,
+  setRolesValidate,
+  statusChangeValidate,
+};

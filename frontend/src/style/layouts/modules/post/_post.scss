@@ -2,23 +2,24 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2021-03-10 20:59:48 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-10 21:11:01
+ * @Last Modified time: 2021-03-13 10:33:05
  */
 .commentStyleWrapper {
   background-color: $lightGrayColor;
   padding: $defaultPadding;
-  .commentUserWrapper {
+}
+
+.commentUserWrapper {
+  @include displayFlex();
+  @include flexDirection(row);
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+  }
+  .userInfo {
     @include displayFlex();
-    @include flexDirection(row);
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50px;
-    }
-    .userInfo {
-      @include displayFlex();
-      @include flexDirection(column);
-      margin-left: 10px;
-    }
+    @include flexDirection(column);
+    margin-left: 10px;
   }
 }

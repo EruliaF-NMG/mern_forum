@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { TemplateOne } from '../../../ui-components/templates/TemplateOne';
@@ -11,98 +11,110 @@ import {
 import {
   UICard,
   GETFormState,
+  CheckPermission,
 } from '../../../ui-components/ui-elements/common/BaseElements';
-import { editPostAPI, addCommentAPI } from '../../../../config/apiUrl.config';
+import {
+  editPostAPI,
+  addCommentAPI,
+  getUserProfileImgAPI,
+} from '../../../../config/apiUrl.config';
 import { dateObjectToString } from '../../../../helpers/common-helpers/dateTime.helpers';
+import { _get } from '../../../../helpers/common-helpers/lodash.wrappers';
+import { postStatus, roleCodes } from '../../../../config/database-status';
+import { permissions } from '../../../../config/permission.config';
+import { AuthContext } from '../../../modules/core/context-providers/AuthContext.provider';
 
 const ShowPostDetails = ({ data = {}, formParent = {} }) => {
   const history = useHistory();
+  const [authStatus] = useContext(AuthContext);
+  console.log(
+    '++++++++++++++',
+    _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin) !== 1
+  );
   return (
     <Fragment>
-      <h1 className="defaultMarginBottom">{data.heading}</h1>
+      <h1 className="defaultMarginBottom">
+        <CheckPermission
+          permission={permissions.MANAGE_POST_STATUS.permissions}
+        >
+          <span
+            className={`badge defaultMarginRight ${
+              data.status === postStatus.PENDING
+                ? 'bg-warning'
+                : data.status === postStatus.BLOCKED
+                ? 'bg-danger'
+                : 'bg-success'
+            }`}
+          >
+            {data.status}
+          </span>
+        </CheckPermission>
+        {data.heading}
+      </h1>
       <p className="defaultMarginTopBottom">{data.content}</p>
-      <SubmitButton
-        elementWrapperStyle={'defaultMarginRight'}
-        btnText="Delete"
-        btnColor={inputBtnColors.secondary}
-        formGroupName={formParent.formKey}
-        isFullWidth={false}
-        isValidate={true}
-        flashMessages={{
-          SUCCESSFULLY_CREATED: {
-            status: true,
-            message: 'Your post successfully submitted...',
-            messageType: 'success',
-          },
-        }}
-        validationObject={{
-          fileds: {
-            heading: 'Heading',
-            content: 'Content',
-            tags: 'Tags',
-          },
-          rules: {
-            heading: 'required',
-            content: 'required',
-            tags: 'required',
-          },
-          message: {},
-        }}
-        callApiObject={{
-          method: 'put',
-        }}
-        onGetAPIEndPointFn={(fromObject) => {
-          return {
-            url: `${editPostAPI.url}${formParent.id}`,
-            key: editPostAPI.key,
-          };
-        }}
-        onResponseCallBackFn={(error) => {
-          if (!error) {
-            history.push('/home');
-          }
-        }}
-      />
-      <SubmitButton
-        btnText="Approved/Reject"
-        formGroupName={formParent.formKey}
-        isFullWidth={false}
-        isValidate={true}
-        flashMessages={{
-          SUCCESSFULLY_CREATED: {
-            status: true,
-            message: 'Your post successfully submitted...',
-            messageType: 'success',
-          },
-        }}
-        validationObject={{
-          fileds: {
-            heading: 'Heading',
-            content: 'Content',
-            tags: 'Tags',
-          },
-          rules: {
-            heading: 'required',
-            content: 'required',
-            tags: 'required',
-          },
-          message: {},
-        }}
-        callApiObject={{
-          method: 'put',
-        }}
-        onGetAPIEndPointFn={(fromObject) => {
-          return {
-            url: `${editPostAPI.url}${formParent.id}`,
-            key: editPostAPI.key,
-          };
-        }}
-        onResponseCallBackFn={(error) => {
-          if (!error) {
-            history.push('/home');
-          }
-        }}
-      />
+      {formParent.authUserID === _get(data, 'created_by._id', undefined) ||
+      _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin) !== 1 ? (
+        <SubmitButton
+          elementWrapperStyle={'defaultMarginRight'}
+          btnText="Delete"
+          btnColor={inputBtnColors.secondary}
+          formGroupName={formParent.formKey}
+          isFullWidth={false}
+          isValidate={false}
+          callApiObject={{
+            method: 'delete',
+          }}
+          onChangeRequestBodyFn={() => {}}
+          onGetAPIEndPointFn={() => {
+            return {
+              url: `${editPostAPI.url}${formParent.id}`,
+              key: editPostAPI.key,
+            };
+          }}
+          onResponseCallBackFn={(error) => {
+            if (!error) {
+              history.push('/home');
+            }
+          }}
+        />
+      ) : null}
+
+      <CheckPermission permission={permissions.MANAGE_POST_STATUS.permissions}>
+        <SubmitButton
+          btnText={`${
+            data.status === postStatus.APPROVED
+              ? 'Block This Post'
+              : 'Approve This Post'
+          }`}
+          formGroupName={formParent.formKey}
+          btnColor={`${
+            data.status === postStatus.APPROVED
+              ? inputBtnColors.secondary
+              : inputBtnColors.primary
+          }`}
+          isFullWidth={false}
+          isValidate={false}
+          callApiObject={{
+            method: 'patch',
+          }}
+          onGetAPIEndPointFn={(fromObject) => {
+            return {
+              url: `${editPostAPI.url}${formParent.id}/${
+                data.status === postStatus.APPROVED
+                  ? postStatus.BLOCKED
+                  : postStatus.APPROVED
+              }`,
+              key: editPostAPI.key,
+            };
+          }}
+          onChangeRequestBodyFn={() => {}}
+          onResponseCallBackFn={(error) => {
+            if (!error) {
+              history.push('/home');
+            }
+          }}
+        />
+      </CheckPermission>
       <div className="fullWidthDiv defaultMarginTopBottom">
         <hr />
         <h2>Comments...</h2>
@@ -158,11 +170,25 @@ const ShowPostDetails = ({ data = {}, formParent = {} }) => {
           <hr />
           {(data.comments || []).map((comment, index) => {
             return (
-              <div className="fullWidthDiv defaultMarginBottom commentStyleWrapper">
+              <div
+                className="fullWidthDiv defaultMarginBottom commentStyleWrapper"
+                key={index}
+              >
                 <div className="commentUserWrapper">
-                  <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+                  <img
+                    src={`${getUserProfileImgAPI.url}${_get(
+                      comment,
+                      'created_by._id',
+                      undefined
+                    )}`}
+                    alt="pro-pic"
+                  />
                   <div className="userInfo">
-                    <strong>Nisal Madusanka</strong>
+                    <strong>{`${_get(
+                      comment,
+                      'created_by.first_name',
+                      ''
+                    )} ${_get(comment, 'created_by.last_name', '')}`}</strong>
                     <small>
                       {dateObjectToString(comment.created_at, 'YY-mm-dd')}
                     </small>
@@ -188,29 +214,34 @@ const ViewPostPage = (props) => {
     <TemplateOne>
       <Fragment>
         <UICard>
-          <FormWrapper
-            setGroupName={viewPostFormKey}
-            apiUrl={`${editPostAPI.url}${props.match.params.id}`}
-            onRebuildResponseFn={(result) => {
-              return {
-                heading: result.heading || '',
-                content: result.content || '',
-                tags: result.tags || '',
-                comments: result.comments || [],
-                _id: result._id || undefined,
-                _onLoad: false,
-              };
-            }}
-          >
-            <GETFormState
-              formKey={viewPostFormKey}
-              parentToChild={{
-                id: props.match.params.id,
-                formKey: viewPostFormKey,
+          <Fragment>
+            <FormWrapper
+              setGroupName={viewPostFormKey}
+              apiUrl={`${editPostAPI.url}${props.match.params.id}`}
+              onRebuildResponseFn={(result) => {
+                return {
+                  heading: result.heading || '',
+                  content: result.content || '',
+                  tags: result.tags || '',
+                  comments: result.comments || [],
+                  status: result.status,
+                  created_by: result.created_by,
+                  _id: result._id || undefined,
+                  _onLoad: false,
+                };
               }}
-              component={ShowPostDetails}
-            />
-          </FormWrapper>
+            >
+              <GETFormState
+                formKey={viewPostFormKey}
+                parentToChild={{
+                  id: props.match.params.id,
+                  formKey: viewPostFormKey,
+                  authUserID: props.authUser.id,
+                }}
+                component={ShowPostDetails}
+              />
+            </FormWrapper>
+          </Fragment>
         </UICard>
       </Fragment>
     </TemplateOne>

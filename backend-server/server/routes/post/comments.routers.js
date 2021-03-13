@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 21:28:10
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 22:03:28
+ * @Last Modified time: 2021-03-13 23:16:23
  */
 import express from 'express';
 
@@ -11,6 +11,8 @@ import commentController from '../../http/controllers/post/comment.controller';
 
 import { createCommentValidate } from '../../http/requests/post/comment.request';
 import isAuth from '../../http/middleware/auth/isauth.middleware';
+import { roleCodes } from '../../config/database-status';
+import isRole from '../../http/middleware/auth/isRole.middleware';
 
 const router = express.Router();
 
@@ -76,7 +78,12 @@ const router = express.Router();
  */
 router
   .route('/posts/comments/:postID')
-  .post(isAuth, createCommentValidate, commentController.create);
+  .post(
+    isAuth,
+    isRole(roleCodes.normalUser),
+    createCommentValidate,
+    commentController.create
+  );
 
 router.param('postID', postController.getPostByID);
 

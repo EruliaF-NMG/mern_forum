@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:57:05
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 21:57:23
+ * @Last Modified time: 2021-03-13 23:04:44
  */
 
 import express from 'express';
@@ -13,9 +13,13 @@ import {
   createUserValidate,
   updateUserValidate,
   setRolesValidate,
+  statusChangeValidate,
 } from '../../http/requests/user/user.request';
 import isAuth from '../../http/middleware/auth/isauth.middleware';
+import { isProfileEditBySameUser } from '../../http/middleware/auth/isAcctionDoneBySameUser.middleware';
+import isRole from '../../http/middleware/auth/isRole.middleware';
 import { fileUpload } from '../../http/middleware/file-upload/multipartFrom';
+import { roleCodes } from '../../config/database-status';
 
 const router = express.Router();
 
@@ -129,7 +133,12 @@ router.route('/users').post(createUserValidate, userController.create);
  */
 router
   .route('/users/:userID')
-  .put(isAuth, updateUserValidate, userController.update);
+  .put(
+    isAuth,
+    isProfileEditBySameUser,
+    updateUserValidate,
+    userController.update
+  );
 
 /**
  * @swagger
@@ -180,10 +189,57 @@ router
  *         schema:
  *          $ref: '#/definitions/NotFoundResponse'
  */
-router.route('/users/:userID').get(isAuth, userController.getCurrentUser);
+router
+  .route('/users/:userID')
+  .get(isAuth, isProfileEditBySameUser, userController.getCurrentUser);
 
-// TODO
-router.route('/users').get(isAuth, userController.getAllUsers);
+/**
+ * @swagger
+ * /api/users:
+ *  parameters:
+ *   - name: Content-Type
+ *     in: header
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: 'application/json'
+ *  get:
+ *   security:
+ *      - bearerAuth: []
+ *   tags:
+ *       - User Manage Apis
+ *   summary: Get User List
+ *   description: get user information
+ *   responseClass: User
+ *   responses:
+ *    200:
+ *     description: User data successfully received
+ *     content:
+ *       application/json:
+ *         schema:
+ *          type: object
+ *          properties:
+ *            meta:
+ *                $ref: '#/definitions/SuccessGetResponse'
+ *            data:
+ *              items:
+ *                $ref: '#/definitions/UserObject'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
+ *    404:
+ *     description: validation Errors
+ *     content:
+ *       application/json:
+ *         schema:
+ *          $ref: '#/definitions/NotFoundResponse'
+ */
+router
+  .route('/users')
+  .get(isAuth, isRole(roleCodes.admin), userController.getAllUsers);
 
 /**
  * @swagger
@@ -253,6 +309,7 @@ router
   .route('/users/set-user-image/:userID')
   .post(
     isAuth,
+    isProfileEditBySameUser,
     fileUpload.single('profileImage'),
     userController.uploadProfilePic
   );
@@ -366,7 +423,76 @@ router
  */
 router
   .route('/users/set-roles/:userID')
-  .patch(isAuth, setRolesValidate, userController.setRoles);
+  .patch(
+    isAuth,
+    isRole(roleCodes.admin),
+    setRolesValidate,
+    userController.setRoles
+  );
+
+/**
+ * @swagger
+ * /api/users/status-change/{userID}/{status}:
+ *  parameters:
+ *   - name: Content-Type
+ *     in: header
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: 'application/json'
+ *   - name: userID
+ *     in: path
+ *     required: true
+ *     schema:
+ *       type: string
+ *       example: '<User-ID>'
+ *   - name: status
+ *     in: path
+ *     required: true
+ *     schema:
+ *       type: string
+ *       enum: ['0', '1']
+ *  patch:
+ *   security:
+ *      - bearerAuth: []
+ *   tags:
+ *      - User Manage Apis
+ *   summary: Change User Status
+ *   description: Change User Status
+ *   responseClass: User
+ *   responses:
+ *    200:
+ *     description: User Successfully updated
+ *     content:
+ *       application/json:
+ *         schema:
+ *          type: object
+ *          properties:
+ *            meta:
+ *                $ref: '#/definitions/SuccessPutResponse'
+ *            data:
+ *                $ref: '#/definitions/UserObject'
+ *    401:
+ *     description: Unauthorized User
+ *     content:
+ *         schema:
+ *          type: string
+ *          example: 'Unauthorized'
+ *    404:
+ *     description: validation Errors
+ *     content:
+ *       application/json:
+ *         schema:
+ *          $ref: '#/definitions/NotFoundResponse'
+ */
+router
+  .route('/users/status-change/:userID/:status')
+  .patch(
+    isAuth,
+    isRole(roleCodes.admin),
+    statusChangeValidate,
+    userController.statusChange
+  );
 
 router.param('userID', userController.getUserByID);
 

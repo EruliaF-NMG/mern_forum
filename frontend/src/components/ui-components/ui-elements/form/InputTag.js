@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-10 14:55:40
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-10 16:15:16
+ * @Last Modified time: 2021-03-13 21:40:22
  */
 import React, { Fragment, useState, memo } from 'react';
 import { FormHelperTextWrapper } from './form-includes/FormCoreIncludes';
@@ -72,7 +72,7 @@ const InputTag = ({
         <div className="showTags">
           {inputValue.split(',').map((value, index) => {
             return (
-              <span className="badge rounded-pill bg-warning">
+              <span className="badge rounded-pill bg-warning" key={index}>
                 {value}
                 {'  '}
                 <i

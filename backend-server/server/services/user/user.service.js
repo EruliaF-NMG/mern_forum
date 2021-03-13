@@ -2,12 +2,15 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:33:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 22:35:11
+ * @Last Modified time: 2021-03-13 18:40:47
  */
-
+import mongoose from 'mongoose';
 import CoreService from '../core-service';
 import User from '../../models/user/user.model';
 import oauthAccessTokenService from '../auth/oauth-access-token.service';
+import { BasicRoleID } from '../../config/database-status';
+import { asyncParallel } from '../../helpers/common-helpers/async-method-wrapper';
+import { getInt } from '../../helpers/common-helpers/lodash.wrappers';
 
 class UserService extends CoreService {
   constructor() {
@@ -70,6 +73,7 @@ class UserService extends CoreService {
       first_name: userObject.first_name,
       last_name: userObject.last_name,
       email: userObject.email,
+      roles: [mongoose.Types.ObjectId(BasicRoleID)],
       encrypted_password: userObject.password,
     };
 
@@ -95,6 +99,53 @@ class UserService extends CoreService {
       updated_at: Date.now(),
     };
     this.create(userObj, cb);
+  }
+
+  /**
+   *
+   * @param {*} filterObject
+   * @param {*} cb
+   */
+  pagination(filterObject, cb) {
+    const page = getInt(filterObject, 'page', 1);
+    const limit = getInt(filterObject, 'limit', 10);
+
+    const skip = page <= 1 ? 0 : limit * (page - 1);
+    const query = {};
+
+    if (filterObject.status) {
+      query.status = filterObject.status !== '0';
+    }
+
+    if (filterObject.serachkey) {
+      query.$or = [
+        { first_name: { $regex: `.*${filterObject.serachkey}.*` } },
+        { last_name: { $regex: `.*${filterObject.serachkey}.*` } },
+      ];
+    }
+
+    asyncParallel(
+      {
+        getCount: (getCountCB) => {
+          this.model.count(query, getCountCB);
+        },
+        getResult: (getResultCB) => {
+          this.model.find(query).skip(skip).limit(limit).exec(getResultCB);
+        },
+      },
+      (error, result) => {
+        if (error) {
+          cb(error);
+        }
+        cb(null, {
+          current_page: page,
+          total_pages: Math.ceil(result.getCount / limit),
+          data: result.getResult,
+          total_items: result.getCount,
+          page_size: limit,
+        });
+      }
+    );
   }
 }
 

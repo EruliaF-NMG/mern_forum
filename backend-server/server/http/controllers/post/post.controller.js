@@ -2,13 +2,14 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 19:24:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 21:13:50
+ * @Last Modified time: 2021-03-13 23:13:14
  */
 
 import postService from '../../../services/post/post.service';
 import {
   generateResponseFn,
   generateErrorResponseFn,
+  generatePaginationResponseFn,
 } from '../../../helpers/common-helpers/common-methods';
 import {
   successPostResponse,
@@ -19,13 +20,18 @@ import {
   successDeleteResponse,
   failedDeleteResponse,
 } from '../../../config/api-response.config';
-import { postStatus } from '../../../config/database-status';
+import { postStatus, roleCodes } from '../../../config/database-status';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 
 const create = (req, res) => {
   const formObject = req.validatedFromObject;
-  formObject.status = postStatus.PENDING; // Todo
   formObject.created_by = get(req, 'authUser._id', null);
+
+  if (req.authRoles.indexOf(roleCodes.admin) !== -1) {
+    formObject.status = postStatus.APPROVED;
+  } else {
+    formObject.status = postStatus.PENDING;
+  }
 
   postService.createPost(formObject, (error, user) => {
     if (error) {
@@ -84,7 +90,7 @@ const update = (req, res) => {
 };
 
 const getAll = (req, res) => {
-  postService.pagination(req.query, (error, users) => {
+  postService.pagination(req.query, (error, postsObject) => {
     if (error) {
       return res
         .status(exceptionOccurredResponse.httpStatus)
@@ -92,14 +98,14 @@ const getAll = (req, res) => {
           generateErrorResponseFn(
             exceptionOccurredResponse,
             error,
-            'user list not found'
+            'Post list not found'
           )
         );
     }
 
     res
       .status(successGetResponse.httpStatus)
-      .json(generateResponseFn(successGetResponse, users));
+      .json(generatePaginationResponseFn(successGetResponse, postsObject));
   });
 };
 
@@ -110,7 +116,7 @@ const getCurrentPost = (req, res) => {
 };
 
 const getPostByID = (req, res, next, id) => {
-  postService.findByID(id, (error, post) => {
+  postService.findPostByID(id, (error, post) => {
     if (error) {
       return res
         .status(notFoundResponse.httpStatus)

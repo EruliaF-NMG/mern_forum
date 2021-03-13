@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:39:18
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 21:12:28
+ * @Last Modified time: 2021-03-13 22:17:30
  */
 
 const successGetResponse = {
@@ -65,6 +65,12 @@ const notFoundResponse = {
   httpStatus: 404,
 };
 
+const permissionDeniedResponse = {
+  code: 'PERMISSION_DENIED',
+  message: 'User doesn`t have enough permissions',
+  httpStatus: 403,
+};
+
 export {
   successGetResponse,
   successPostResponse,
@@ -76,4 +82,5 @@ export {
   notFoundResponse,
   successDeleteResponse,
   failedDeleteResponse,
+  permissionDeniedResponse,
 };

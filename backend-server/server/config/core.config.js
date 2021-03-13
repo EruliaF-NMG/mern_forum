@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 17:38:43
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 13:22:22
+ * @Last Modified time: 2021-03-13 21:19:09
  */
 
 const currentEnv = process.env.NODE_ENV || 'development';

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:17:47
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 22:42:35
+ * @Last Modified time: 2021-03-13 23:32:08
  */
 
 const userStatus = {
@@ -21,12 +21,9 @@ const commentStatus = {
   BLOCKED: false,
 };
 
-const BasicRoleID = '604a310d8d757a4fccdf6e6a';
-
 const roleCodes = {
   admin: 'ADMIN_USER',
   normalUser: 'NORMAL_USER',
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { userStatus, postStatus, commentStatus, BasicRoleID, roleCodes };
+export { userStatus, postStatus, commentStatus, roleCodes };

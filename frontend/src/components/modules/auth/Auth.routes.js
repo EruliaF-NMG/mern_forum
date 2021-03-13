@@ -2,7 +2,7 @@
  * @Author: Sujith
  * @Date: 2020-03-11
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 13:08:57
+ * @Last Modified time: 2021-03-13 20:24:48
  */
 
 import React, { Fragment } from 'react';
@@ -14,6 +14,7 @@ const AuthRoutes = () => {
   return (
     <Fragment>
       <Navigate path="/" exact={true} component={Guest(LoginRegister)} />
+      <Navigate path="/login" exact={true} component={Guest(LoginRegister)} />
     </Fragment>
   );
 };

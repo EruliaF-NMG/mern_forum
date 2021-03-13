@@ -2,12 +2,12 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2020-03-21 16:17:02
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 10:20:20
+ * @Last Modified time: 2021-03-13 21:18:40
  */
 
 import axios from 'axios';
 
-import { checkUserINLocalStorage } from './manageStorage.helpers';
+import { checkUserINLocalStorage, logoutUser } from './manageStorage.helpers';
 import { _get } from './lodash.wrappers';
 
 /**
@@ -39,14 +39,16 @@ const axiosWrapper = (
   }
   axios(apiCallObject)
     .then((response) => {
-      // console.log("++response++",response)
       cb(null, {
         _statue: true,
         data: response.data,
       });
     })
     .catch((error) => {
-      //console.log("++error++",error)
+      if (_get(error, 'response.data', 'NONE') === 'Unauthorized') {
+        logoutUser();
+        window.location.reload();
+      }
       cb(
         {
           _statue: false,
@@ -72,7 +74,6 @@ const createHeader = (isSetHeaders = true, multipart = false) => {
     headers['Authorization'] =
       'Bearer ' + _get(userData, 'result.access_token', '');
   }
-  console.log(headers);
   return {
     headers: headers,
   };
