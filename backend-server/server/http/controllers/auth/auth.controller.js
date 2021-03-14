@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 11:44:05
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 20:02:13
+ * @Last Modified time: 2021-03-14 08:43:14
  */
 import jwt from 'jsonwebtoken';
 import userService from '../../../services/user/user.service';
@@ -10,6 +10,7 @@ import { unauthorizedResponse } from '../../../config/api-response.config';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 import { salt } from '../../../config/core.config';
 import oauthAccessTokenService from '../../../services/auth/oauth-access-token.service';
+import { logger } from '../../../helpers/common-helpers/logs';
 
 /**
  * @author Nisal Madusanka(EruliaF)
@@ -20,6 +21,9 @@ import oauthAccessTokenService from '../../../services/auth/oauth-access-token.s
 const token = (req, res) => {
   userService.authUser(req.validatedFromObject, (error, tokens) => {
     if (error) {
+      logger.error(
+        `Access token generation failed :: Error :: ${JSON.stringify(error)}`
+      );
       res.status(unauthorizedResponse.httpStatus).send('Unauthorized');
     }
     res.status(200).send(tokens);

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:06:03
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-07 08:47:36
+ * @Last Modified time: 2021-03-14 10:38:40
  */
 
 import CoreService from '../core-service';
@@ -14,7 +14,7 @@ class OauthClientService extends CoreService {
   }
 
   /**
-   * @description add data to db
+   * @description create Client
    * @param {Object} createObject
    * @param {Function} cb
    */

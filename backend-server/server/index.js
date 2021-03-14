@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-05 16:57:35
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-06 09:35:05
+ * @Last Modified time: 2021-03-14 11:14:17
  */
 
 import http from 'http';
@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import app from './bootstrap/routes-config';
 import { port } from './config/core.config';
 import { mongoUri } from './config/database.config';
+import './bootstrap/schedule-config';
 
 const server = http.createServer(app);
 

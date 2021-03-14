@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 09:37:53
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 19:31:15
+ * @Last Modified time: 2021-03-14 10:19:02
  */
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -24,10 +24,19 @@ import {
 import { uploadImage, getImage } from '../../../helpers/gird-fs/manageUploads';
 import { sendFileToResponce } from '../../../helpers/gird-fs/grid-fs';
 import { BasicRoleID } from '../../../config/database-status';
+import { logger } from '../../../helpers/common-helpers/logs';
 
+/**
+ * @description create new user
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const create = (req, res) => {
   userService.createUser(req.validatedFromObject, (error, user) => {
     if (error) {
+      logger.error(
+        `Failed To Create User :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
@@ -50,6 +59,11 @@ const create = (req, res) => {
   });
 };
 
+/**
+ * @description update user
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const update = (req, res) => {
   const user = req.currentUser;
 
@@ -64,6 +78,9 @@ const update = (req, res) => {
 
   user.save((error, userobj) => {
     if (error) {
+      logger.error(
+        `Failed To Update User :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
@@ -86,6 +103,11 @@ const update = (req, res) => {
   });
 };
 
+/**
+ * @description get user by id
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const getCurrentUser = (req, res) => {
   req.currentUser.password = undefined;
   res
@@ -93,16 +115,24 @@ const getCurrentUser = (req, res) => {
     .json(generateResponseFn(successGetResponse, req.currentUser));
 };
 
+/**
+ * @description get user by id
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const getUserByID = (req, res, next, id) => {
   userService.findByID(id, (error, user) => {
     if (error) {
+      logger.error(
+        `Selected User Not Found :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(notFoundResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             notFoundResponse,
             error,
-            'request user not found'
+            'Selected User Not Found'
           )
         );
     }
@@ -111,16 +141,24 @@ const getUserByID = (req, res, next, id) => {
   });
 };
 
+/**
+ * @description get User List
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const getAllUsers = (req, res) => {
   userService.pagination(req.query, (error, usersObject) => {
     if (error) {
+      logger.error(
+        `Failed To Generate User List :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(exceptionOccurredResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             exceptionOccurredResponse,
             error,
-            'user list not found'
+            'Failed To Generate User List'
           )
         );
     }
@@ -131,11 +169,19 @@ const getAllUsers = (req, res) => {
   });
 };
 
+/**
+ * @description upload porfile image
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const uploadProfilePic = (req, res) => {
   // eslint-disable-next-line no-underscore-dangle
   const userID = req.currentUser._id;
   uploadImage(userID, req.file, (error) => {
     if (error) {
+      logger.error(
+        `User File Upload Failed :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
@@ -158,6 +204,11 @@ const uploadProfilePic = (req, res) => {
   });
 };
 
+/**
+ * @description get user profile image
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const getUserProfileImage = (req, res, next) => {
   // eslint-disable-next-line no-underscore-dangle
   const userID = req.currentUser._id;
@@ -179,6 +230,11 @@ const getUserProfileImage = (req, res, next) => {
   });
 };
 
+/**
+ * @description Get Default Profile Image
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const defaultProfileImage = (req, res) => {
   res.header('Content-Type', 'image/png');
   fs.ReadStream('./assets/default-profile-img.png')
@@ -196,6 +252,11 @@ const defaultProfileImage = (req, res) => {
     );
 };
 
+/**
+ * @description set roles to user
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const setRoles = (req, res) => {
   const user = req.currentUser;
 
@@ -209,13 +270,16 @@ const setRoles = (req, res) => {
 
   user.save((error, userObject) => {
     if (error) {
+      logger.error(
+        `Failed to Attach Roles :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'User update Failed'
+            'Failed to Attach Roles'
           )
         );
     }
@@ -231,6 +295,11 @@ const setRoles = (req, res) => {
   });
 };
 
+/**
+ * @description change user status
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const statusChange = (req, res) => {
   const user = req.currentUser;
   const status = `${req.params.status}`;
@@ -250,13 +319,16 @@ const statusChange = (req, res) => {
 
   user.save((error, userObject) => {
     if (error) {
+      logger.error(
+        `Failed to Change User State :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'User update Failed'
+            'Failed to Change User State'
           )
         );
     }

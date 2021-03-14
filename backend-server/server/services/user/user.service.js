@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:33:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 18:40:47
+ * @Last Modified time: 2021-03-14 10:42:34
  */
 import mongoose from 'mongoose';
 import CoreService from '../core-service';
@@ -17,6 +17,11 @@ class UserService extends CoreService {
     super(User);
   }
 
+  /**
+   * chaek user authentication
+   * @param {Object} userObject
+   * @param {Function} cb
+   */
   checkUser(userObject, cb) {
     this.model
       .findOne({
@@ -48,6 +53,11 @@ class UserService extends CoreService {
       });
   }
 
+  /**
+   * pass request to chaek user authentication
+   * @param {Object} userObject
+   * @param {Function} cb
+   */
   authUser(userObject = {}, cb) {
     // eslint-disable-next-line consistent-return
     this.checkUser(userObject, (error, user) => {
@@ -63,7 +73,7 @@ class UserService extends CoreService {
   }
 
   /**
-   * @description add data to db
+   * @description add new user
    * @param {Object} userObject
    * @param {Function} cb
    */
@@ -81,7 +91,7 @@ class UserService extends CoreService {
   }
 
   /**
-   * @description add data to db
+   * @description update user
    * @param {Object} userObject
    * @param {Function} cb
    */
@@ -102,7 +112,7 @@ class UserService extends CoreService {
   }
 
   /**
-   *
+   * paginate user data
    * @param {*} filterObject
    * @param {*} cb
    */

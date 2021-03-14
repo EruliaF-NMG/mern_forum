@@ -71,10 +71,12 @@ const CardActionBody = ({ row = {} }) => {
         onClickBtnFn={() => history.push(`view-post/${row._id}`)}
       />
       {authState.authUser.id === _get(row, 'created_by._id', undefined) ? (
-        <InputButton
-          btnText="Edit"
-          onClickBtnFn={() => history.push(`edit-post/${row._id}`)}
-        />
+        <CheckPermission permission={permissions.EDIT_POST.permissions}>
+          <InputButton
+            btnText="Edit"
+            onClickBtnFn={() => history.push(`edit-post/${row._id}`)}
+          />
+        </CheckPermission>
       ) : null}
     </Fragment>
   );

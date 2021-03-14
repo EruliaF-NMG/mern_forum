@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 17:53:16
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 20:48:09
+ * @Last Modified time: 2021-03-14 09:58:10
  */
 import mongoose from 'mongoose';
 import roleService from '../../../services/user/role.service';
@@ -17,6 +17,7 @@ import {
   notFoundResponse,
   exceptionOccurredResponse,
 } from '../../../config/api-response.config';
+import { logger } from '../../../helpers/common-helpers/logs';
 
 const create = (req, res) => {
   const formObject = req.validatedFromObject;
@@ -24,6 +25,9 @@ const create = (req, res) => {
   formObject.created_by = req.authUser._id;
   roleService.createRole(formObject, (error, roleObj) => {
     if (error) {
+      logger.error(
+        `Failed To Create Role :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
@@ -57,13 +61,16 @@ const update = (req, res) => {
 
   role.save((error, roleObj) => {
     if (error) {
+      logger.error(
+        `Failed To Update Role :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'Role update Failed'
+            'Failed To Update Role'
           )
         );
     }
@@ -89,6 +96,9 @@ const getRoleByID = (req, res, next, id) => {
   // eslint-disable-next-line consistent-return
   roleService.findByID(id, (error, role) => {
     if (error) {
+      logger.error(
+        `Selected Role Not Found :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(notFoundResponse.httpStatus)
         .json(
@@ -108,13 +118,16 @@ const getAll = (req, res) => {
   // eslint-disable-next-line consistent-return
   roleService.find({}, (error, roles) => {
     if (error) {
+      logger.error(
+        `Failed To Generate Role List :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(exceptionOccurredResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             exceptionOccurredResponse,
             error,
-            'user list not found'
+            'Failed To Generate Role List'
           )
         );
     }
@@ -138,13 +151,16 @@ const setPermissions = (req, res) => {
 
   role.save((error, roleObj) => {
     if (error) {
+      logger.error(
+        `Failed To Set Permissions :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'Role update Failed'
+            'Failed To Set Permissions'
           )
         );
     }

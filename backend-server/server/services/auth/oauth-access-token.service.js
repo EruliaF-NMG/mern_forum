@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:06:03
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-11 22:40:19
+ * @Last Modified time: 2021-03-14 10:38:27
  */
 
 import jwt from 'jsonwebtoken';
@@ -18,6 +18,12 @@ class OauthAccessTokenService extends CoreService {
     super(OauthAccessToken);
   }
 
+  /**
+   * generate access and refresh Token
+   * @param {object} userObject
+   * @param {object} clientFilterObj
+   * @param {Function} cb callback function
+   */
   generateToken(userObject, clientFilterObj, cb) {
     // eslint-disable-next-line consistent-return
     oauthClientService.findOne(clientFilterObj, (error, client) => {
@@ -76,6 +82,12 @@ class OauthAccessTokenService extends CoreService {
     });
   }
 
+  /**
+   * Insert access and refresh token to DB
+   * @param {Object} userObject
+   * @param {Object} clientObj
+   * @param {Function} cb
+   */
   createAccessTokenANDRefreshToken(userObject, clientObj, cb) {
     this.create(
       {
@@ -101,6 +113,11 @@ class OauthAccessTokenService extends CoreService {
     );
   }
 
+  /**
+   * Check Access token is valid
+   * @param {String} token token id
+   * @param {Function} cb callabck Function
+   */
   checkAccessToken(token, cb) {
     this.model
       .findOne({

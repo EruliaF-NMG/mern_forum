@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 09:29:48
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 21:29:26
+ * @Last Modified time: 2021-03-14 10:14:05
  */
 
 import {
@@ -15,7 +15,13 @@ import {
 } from '../../../config/api-response.config';
 import { commentStatus } from '../../../config/database-status';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
+import { logger } from '../../../helpers/common-helpers/logs';
 
+/**
+ * @description add new comment
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ */
 const create = (req, res) => {
   const post = req.currentPost;
   const authUserID = get(req, 'authUser._id', undefined);
@@ -29,13 +35,16 @@ const create = (req, res) => {
 
   post.save(post, (error, postObj) => {
     if (error) {
+      logger.error(
+        `Failed To Add Your Comment :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'unable to update your post'
+            'Failed To Add Your Comment'
           )
         );
     }
@@ -45,7 +54,7 @@ const create = (req, res) => {
         generateResponseFn(
           successPostResponse,
           postObj,
-          'post updated successfully'
+          'Your Comment successfully added.'
         )
       );
   });

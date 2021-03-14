@@ -28,8 +28,9 @@ const ShowPostDetails = ({ data = {}, formParent = {} }) => {
   const history = useHistory();
   const [authStatus] = useContext(AuthContext);
   console.log(
-    '++++++++++++++',
-    _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin) !== 1
+    formParent.authUserID,
+    _get(data, 'created_by._id', undefined),
+    _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin)
   );
   return (
     <Fragment>
@@ -53,30 +54,32 @@ const ShowPostDetails = ({ data = {}, formParent = {} }) => {
       </h1>
       <p className="defaultMarginTopBottom">{data.content}</p>
       {formParent.authUserID === _get(data, 'created_by._id', undefined) ||
-      _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin) !== 1 ? (
-        <SubmitButton
-          elementWrapperStyle={'defaultMarginRight'}
-          btnText="Delete"
-          btnColor={inputBtnColors.secondary}
-          formGroupName={formParent.formKey}
-          isFullWidth={false}
-          isValidate={false}
-          callApiObject={{
-            method: 'delete',
-          }}
-          onChangeRequestBodyFn={() => {}}
-          onGetAPIEndPointFn={() => {
-            return {
-              url: `${editPostAPI.url}${formParent.id}`,
-              key: editPostAPI.key,
-            };
-          }}
-          onResponseCallBackFn={(error) => {
-            if (!error) {
-              history.push('/home');
-            }
-          }}
-        />
+      _get(authStatus, 'authUser.roles', []).indexOf(roleCodes.admin) !== -1 ? (
+        <CheckPermission permission={permissions.REMOVE_OWN_POST.permissions}>
+          <SubmitButton
+            elementWrapperStyle={'defaultMarginRight'}
+            btnText="Delete"
+            btnColor={inputBtnColors.secondary}
+            formGroupName={formParent.formKey}
+            isFullWidth={false}
+            isValidate={false}
+            callApiObject={{
+              method: 'delete',
+            }}
+            onChangeRequestBodyFn={() => {}}
+            onGetAPIEndPointFn={() => {
+              return {
+                url: `${editPostAPI.url}${formParent.id}`,
+                key: editPostAPI.key,
+              };
+            }}
+            onResponseCallBackFn={(error) => {
+              if (!error) {
+                history.push('/home');
+              }
+            }}
+          />
+        </CheckPermission>
       ) : null}
 
       <CheckPermission permission={permissions.MANAGE_POST_STATUS.permissions}>

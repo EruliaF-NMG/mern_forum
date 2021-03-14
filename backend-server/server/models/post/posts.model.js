@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 10:31:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 10:02:15
+ * @Last Modified time: 2021-03-14 12:57:34
  */
 
 import mongoose from 'mongoose';
@@ -50,6 +50,10 @@ const postSchema = new mongoose.Schema({
   created_at: {
     type: Date,
     default: Date.now,
+  },
+  activate_at: {
+    type: Date,
+    default: null,
   },
   created_by: {
     type: mongoose.Schema.ObjectId,

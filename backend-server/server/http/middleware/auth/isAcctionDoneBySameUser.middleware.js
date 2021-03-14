@@ -2,13 +2,20 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-13 22:36:00
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 22:59:53
+ * @Last Modified time: 2021-03-14 10:20:03
  */
 
 import { permissionDeniedResponse } from '../../../config/api-response.config';
 import { roleCodes } from '../../../config/database-status';
 import { generateErrorResponseFn } from '../../../helpers/common-helpers/common-methods';
 
+/**
+ * Check User has Admin role Or is action performed by same user
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next pass to next
+ * @returns
+ */
 // eslint-disable-next-line consistent-return
 const isProfileEditBySameUser = (req, res, next) => {
   if (
@@ -30,6 +37,13 @@ const isProfileEditBySameUser = (req, res, next) => {
   }
 };
 
+/**
+ * Check User has Admin role Or is action performed by same user
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next pass to next
+ * @returns
+ */
 // eslint-disable-next-line consistent-return
 const isPostEditBySameUser = (req, res, next) => {
   if (

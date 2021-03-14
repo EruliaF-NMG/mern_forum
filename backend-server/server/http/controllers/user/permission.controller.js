@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-08 17:53:16
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 18:41:13
+ * @Last Modified time: 2021-03-14 09:03:17
  */
 
 import permissionService from '../../../services/user/permission.service';
@@ -17,6 +17,7 @@ import {
   notFoundResponse,
   exceptionOccurredResponse,
 } from '../../../config/api-response.config';
+import { logger } from '../../../helpers/common-helpers/logs';
 
 const create = (req, res) => {
   const formObject = req.validatedFromObject;
@@ -24,13 +25,16 @@ const create = (req, res) => {
   formObject.created_by = req.authUser._id;
   permissionService.createPermission(formObject, (error, permissionObj) => {
     if (error) {
+      logger.error(
+        `Failed To Create Permission :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'Permission Creation Failed'
+            'Failed To Create Permission'
           )
         );
     }
@@ -57,13 +61,16 @@ const update = (req, res) => {
 
   permission.save((error, permissionObj) => {
     if (error) {
+      logger.error(
+        `Failed To Update Permission :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(failedPostResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             failedPostResponse,
             error,
-            'Permission update Failed'
+            'Failed To Update Permission'
           )
         );
     }
@@ -89,13 +96,16 @@ const getPermissionByID = (req, res, next, id) => {
   // eslint-disable-next-line consistent-return
   permissionService.findByID(id, (error, permissionObj) => {
     if (error) {
+      logger.error(
+        `Selected Permission Not Found :: Error :: ${JSON.stringify(error)}`
+      );
       return res
         .status(notFoundResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             notFoundResponse,
             error,
-            'request permissionObj not found'
+            'Selected Permission Not Found'
           )
         );
     }
@@ -108,13 +118,18 @@ const getAll = (req, res) => {
   // eslint-disable-next-line consistent-return
   permissionService.find({}, (error, permissionObj) => {
     if (error) {
+      logger.error(
+        `Failed To Generate Permission List :: Error :: ${JSON.stringify(
+          error
+        )}`
+      );
       return res
         .status(exceptionOccurredResponse.httpStatus)
         .json(
           generateErrorResponseFn(
             exceptionOccurredResponse,
             error,
-            'permission list not found'
+            'Failed To Generate Permission List'
           )
         );
     }

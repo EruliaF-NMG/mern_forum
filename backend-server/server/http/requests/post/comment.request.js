@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 09:58:02
+ * @Last Modified time: 2021-03-14 10:10:27
  */
 
 import validate from '../../../helpers/validation';
@@ -12,7 +12,7 @@ import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate create Post
+ * @description validate create comment
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next

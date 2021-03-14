@@ -2,19 +2,29 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 13:21:04
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 22:11:35
+ * @Last Modified time: 2021-03-14 10:09:33
  */
 
 import jwt from 'jsonwebtoken';
 import { salt } from '../../../config/core.config';
 import oauthAccessTokenService from '../../../services/auth/oauth-access-token.service';
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
+import { logger } from '../../../helpers/common-helpers/logs';
 
+/**
+ * Check User authentication
+ * @param {*} req request object
+ * @param {*} res response object
+ * @param {*} next pass to next
+ * @returns
+ */
+// eslint-disable-next-line consistent-return
 const isAuth = (req, res, next) => {
   let token =
     get(req, 'headers.x-access-token', undefined) ||
     get(req, 'headers.authorization', undefined);
   if (!token) {
+    logger.error('Unauthorized Request');
     return res.status(401).send('Unauthorized');
   }
 
@@ -24,6 +34,7 @@ const isAuth = (req, res, next) => {
   }
 
   if (!token) {
+    logger.error('Unauthorized Request');
     return res.status(401).send('Unauthorized');
   }
 
@@ -56,6 +67,7 @@ const isAuth = (req, res, next) => {
       }
     );
   } catch (err) {
+    logger.error('Unauthorized Request');
     return res.status(401).send('Unauthorized');
   }
 };

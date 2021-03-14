@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 18:26:00
+ * @Last Modified time: 2021-03-14 10:13:00
  */
 
 import validate from '../../../helpers/validation';
@@ -14,7 +14,7 @@ import { generateErrorResponseFn } from '../../../helpers/common-helpers/common-
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate create Client API
+ * @description validate create user API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next
@@ -61,7 +61,7 @@ const createUserValidate = (req, res, next) => {
 
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate edot user API
+ * @description validate edit user API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next
@@ -111,7 +111,7 @@ const updateUserValidate = (req, res, next) => {
 
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate create Client API
+ * @description validate set  role API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next
@@ -147,6 +147,14 @@ const setRolesValidate = (req, res, next) => {
     });
 };
 
+/**
+ * @author Nisal Madusanka(EruliaF)
+ * @description validate status change api
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ * @param {Function} next express request pass to next
+ */
+// eslint-disable-next-line consistent-return
 const statusChangeValidate = (req, res, next) => {
   const status = `${req.params.status}`;
   if (status === '1' || status === '0') {

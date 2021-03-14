@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-07 08:33:52
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-13 10:16:08
+ * @Last Modified time: 2021-03-14 14:51:08
  */
 import mongoose from 'mongoose';
 import CoreService from '../core-service';
@@ -11,6 +11,8 @@ import { postStatus } from '../../config/database-status';
 import { isEmptyValue } from '../../helpers/common-helpers/common-methods';
 import { asyncParallel } from '../../helpers/common-helpers/async-method-wrapper';
 import { getInt } from '../../helpers/common-helpers/lodash.wrappers';
+import userService from '../user/user.service';
+import { changeDate } from '../../helpers/common-helpers/time-unit-converter';
 
 class PostService extends CoreService {
   constructor() {
@@ -38,6 +40,11 @@ class PostService extends CoreService {
     this.update({ _id: id }, formObject, cb);
   }
 
+  /**
+   * paginate post data
+   * @param {Object} filterObject filter object
+   * @param {Function} cb
+   */
   pagination(filterObject, cb) {
     const page = getInt(filterObject, 'page', 1);
     const limit = getInt(filterObject, 'limit', 10);
@@ -103,6 +110,11 @@ class PostService extends CoreService {
     );
   }
 
+  /**
+   * find post by id
+   * @param {*} id
+   * @param {*} cb
+   */
   findPostByID(id, cb) {
     this.model
       .findOne({
@@ -120,6 +132,47 @@ class PostService extends CoreService {
         },
       ])
       .exec(cb);
+  }
+
+  /**
+   * get Information for generate Email contact
+   * @param {Function} cb
+   */
+  getDataForEmail(cb) {
+    const now = new Date();
+    const oneDayLayer = changeDate(new Date()).setDays(-1).getDate();
+    asyncParallel(
+      {
+        getUserList: (getUserListCB) => {
+          userService.find(
+            {
+              status: true,
+            },
+            getUserListCB
+          );
+        },
+        getPostList: (getUserListCB) => {
+          this.find(
+            {
+              status: postStatus.APPROVED,
+              activate_at: { $gt: oneDayLayer, $lt: now, $ne: null },
+            },
+            getUserListCB
+          );
+        },
+      },
+      (error, result) => {
+        if (error) {
+          cb(error);
+        }
+        const emails = result.getUserList.map((user) => user.email);
+        const posts = result.getPostList.map((post) => ({
+          heading: post.heading,
+          content: post.content.substring(0, 100),
+        }));
+        cb(null, { emails, posts });
+      }
+    );
   }
 }
 

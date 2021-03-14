@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-08 09:58:16
+ * @Last Modified time: 2021-03-14 10:10:58
  */
 
 import validate from '../../../helpers/validation';
@@ -56,6 +56,13 @@ const createPostValidate = (req, res, next) => {
       next();
     });
 };
+/**
+ * @author Nisal Madusanka(EruliaF)
+ * @description validate status change
+ * @param {Object} req express request object
+ * @param {Object} res express response object
+ * @param {Function} next express request pass to next
+ */
 // eslint-disable-next-line consistent-return
 const statusChangeValidate = (req, res, next) => {
   if (

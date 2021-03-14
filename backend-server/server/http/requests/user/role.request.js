@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-06 19:56:38
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-12 21:40:20
+ * @Last Modified time: 2021-03-14 10:19:07
  */
 
 import validate from '../../../helpers/validation';
@@ -11,7 +11,7 @@ import { generateErrorResponseFn } from '../../../helpers/common-helpers/common-
 import { get } from '../../../helpers/common-helpers/lodash.wrappers';
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate create Client API
+ * @description validate create Role API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next
@@ -52,7 +52,7 @@ const createRoleValidate = (req, res, next) => {
 
 /**
  * @author Nisal Madusanka(EruliaF)
- * @description validate create Client API
+ * @description validate set Permissionss API
  * @param {Object} req express request object
  * @param {Object} res express response object
  * @param {Function} next express request pass to next

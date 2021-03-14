@@ -7,6 +7,7 @@ import { InputButton } from '../../../ui-components/ui-elements/form';
 import { CheckPermission } from '../../../ui-components/ui-elements/common/BaseElements';
 import { getAllPostAPI } from '../../../../config/apiUrl.config';
 import { permissions } from '../../../../config/permission.config';
+import { postStatus } from '../../../../config/database-status';
 import {
   SearchBox,
   CardActionBody,
@@ -29,7 +30,7 @@ const DashbordPage = () => {
         </CheckPermission>
         <ForumWrapper
           heading={'Recent Posts'}
-          apiUrl={getAllPostAPI.url}
+          apiUrl={`${getAllPostAPI.url}?status=${postStatus.APPROVED}`}
           forumKey={getAllPostAPI.key}
           defaultSearchFormObject={{ serachkey: '' }}
           cardBody={CardBody}
