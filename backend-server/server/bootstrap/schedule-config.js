@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2021-03-14 11:04:35
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-14 16:00:28
+ * @Last Modified time: 2021-03-14 17:01:11
  */
 
 import schedule from 'node-schedule';

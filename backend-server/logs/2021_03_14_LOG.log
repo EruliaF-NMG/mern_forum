@@ -734,3 +734,42 @@ info: LOG: 03-14-2021 15:05:57:: ::ffff:127.0.0.1 - - [14/Mar/2021:09:35:57 +000
 
 info: LOG: 03-14-2021 15:05:58:: ::ffff:127.0.0.1 - - [14/Mar/2021:09:35:58 +0000] "GET /api/posts?status=APPROVED&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
 
+info: LOG: 03-14-2021 16:59:47:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:47 +0000] "GET /api/users/get-user-image/60477125edd364091a6e2349 HTTP/1.1" 200 9808 "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:47:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:47 +0000] "GET /api/posts?status=APPROVED HTTP/1.1" 401 12 "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:47:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:47 +0000] "GET /api/posts?status=APPROVED&page=1&page-size=10 HTTP/1.1" 401 12 "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:53:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:53 +0000] "POST /api/token HTTP/1.1" 200 808 "http://localhost:3000/login" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:53:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:53 +0000] "GET /api/users/get-user-image/60477125edd364091a6e2349 HTTP/1.1" 200 9808 "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:53:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:53 +0000] "GET /api/posts?status=APPROVED HTTP/1.1" 200 - "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:53:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:53 +0000] "GET /api/posts?status=APPROVED&page=1&page-size=10 HTTP/1.1" 200 - "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:53:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:53 +0000] "GET /api/users/get-user-image/604dbd5aff28cb5c4ce9b214 HTTP/1.1" 200 13117 "http://localhost:3000/home" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:56:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:56 +0000] "GET /api/users/60477125edd364091a6e2349 HTTP/1.1" 304 - "http://localhost:3000/my-profile" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:56:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:56 +0000] "GET /api/posts?created_by=60477125edd364091a6e2349&status=APPROVED HTTP/1.1" 304 - "http://localhost:3000/my-profile" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:56:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:56 +0000] "GET /api/posts?created_by=60477125edd364091a6e2349&status=APPROVED&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/my-profile" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:57:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:57 +0000] "GET /api/posts?&status=APPROVED HTTP/1.1" 304 - "http://localhost:3000/manage-post" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:57:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:57 +0000] "GET /api/posts?&status=APPROVED&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/manage-post" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:58:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:58 +0000] "GET /api/users/60477125edd364091a6e2349 HTTP/1.1" 304 - "http://localhost:3000/my-profile" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:58:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:58 +0000] "GET /api/posts?created_by=60477125edd364091a6e2349&status=APPROVED&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/my-profile" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 16:59:59:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:29:59 +0000] "GET /api/posts?&status=APPROVED&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/manage-post" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 17:00:00:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:30:00 +0000] "GET /api/users?&status=1 HTTP/1.1" 304 - "http://localhost:3000/manage-user" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 17:00:00:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:30:00 +0000] "GET /api/users?&status=1&page=1&page-size=10 HTTP/1.1" 304 - "http://localhost:3000/manage-user" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 17:00:01:: ::ffff:127.0.0.1 - - [14/Mar/2021:11:30:01 +0000] "POST /api/logout HTTP/1.1" 200 4 "http://localhost:3000/manage-user" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+
+info: LOG: 03-14-2021 17:00:04:: Email Send

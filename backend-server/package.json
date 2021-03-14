@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "development": "nodemon",
-    "server": "babel-node ./server/index.js"
+    "development": "nodemon"
   },
   "author": "Nisal Madusanka (EruliaF)",
   "license": "ISC",
