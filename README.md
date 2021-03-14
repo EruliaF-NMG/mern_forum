@@ -27,9 +27,9 @@ Run Frontend Server
 3) if you change the backend server running port then update it on .frontend/src/config/core.config.js  apiBaseURL variable
 
 Admim user
-email:-nisal.nmg@gmail.com
-password:-12345
+email :- nisal.nmg@gmail.com
+password :- 12345
 
 Normal user
-email:-hasaf38@gmail.com
-password:-12345
+email :- hasaf38@gmail.com
+password :- 12345
