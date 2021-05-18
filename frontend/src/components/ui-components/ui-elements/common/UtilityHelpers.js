@@ -1,10 +1,3 @@
-// /*
-//  * @Author: Chanaka Wickramasinghe
-//  * @Description: Utility Helpers
-//  * @Date: 2020-03-25 11:43:57
-//  * @Last Modified by: Chanaka Wickramasinghe
-//  * @Last Modified time: 2020-03-25 11:43:57
-//  */
 
 // import React, { Fragment, memo } from 'react';
 // import PropTypes from "prop-types";

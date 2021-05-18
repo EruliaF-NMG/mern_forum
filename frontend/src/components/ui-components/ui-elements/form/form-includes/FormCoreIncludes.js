@@ -2,8 +2,8 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Description: Core Material Form Components Wrappers
  * @Date: 2020-01-29 10:22:54
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 11:27:33
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:38:00
  */
 
 import React from 'react';
@@ -105,7 +105,7 @@ InputLabelWrapper.propTypes = {
 
 /**
  * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Form Group Wrapper
  * --------------------------------------------
  */
@@ -125,12 +125,6 @@ const FormGroupWrapper = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Form Group Wrapper
- * --------------------------------------------
- */
 
 FormGroupWrapper.propTypes = {
   /** element Wrapper css class */
@@ -141,12 +135,7 @@ FormGroupWrapper.propTypes = {
   children: PropTypes.element,
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Form Helper Text Wrapper
- * --------------------------------------------
- */
+
 
 const FormHelperTextWrapper = ({
   elementStyle = '',
@@ -164,12 +153,7 @@ const FormHelperTextWrapper = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Form Helper Text Wrapper
- * --------------------------------------------
- */
+
 
 FormHelperTextWrapper.propTypes = {
   /** element css class */

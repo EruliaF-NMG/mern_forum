@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Select Dropdown Wrapper
  * @Date: 2020-02-03 10:50:10
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 11:40:05
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:40:18
  */
 
 import React, { memo } from 'react';
@@ -88,12 +88,7 @@ const SelectBox = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Select Box Wrapper
- * --------------------------------------------
- */
+
 
 SelectBox.propTypes = {
   /** element Wrapper css class */
@@ -130,12 +125,7 @@ SelectBox.propTypes = {
 
 //----------------SelectBox---------------------
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Multiple Select Box Wrapper
- * --------------------------------------------
- */
+
 
 const MultipleSelectBox = ({
   elementWrapperStyle = '',
@@ -200,12 +190,7 @@ const MultipleSelectBox = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Multiple Select Box Wrapper
- * --------------------------------------------
- */
+
 
 MultipleSelectBox.propTypes = {
   /** element Wrapper css class */
@@ -291,12 +276,7 @@ const areEqual = (prevProps, nextProps) => {
 
 const SelectBoxMemo = memo(SelectBox, areEqual);
 
-/**
- * --------------------------------------------
- * @Author: Nisal MAdusanka(EruliaF)
- * @Description: SelectBoxWithState
- * --------------------------------------------
- */
+
 const SelectBoxWithState = ({
   elementWrapperStyle = '',
   elementStyle = '',

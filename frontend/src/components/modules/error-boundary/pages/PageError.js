@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Error Page
  * @Date: 2020-05-08 16:48:15
- * @Last Modified by: Chanaka Wickramasinghe
- * @Last Modified time: 2020-05-08 16:48:15
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:39:58
  */
 import React from "react";
 import { Link } from "react-router-dom";

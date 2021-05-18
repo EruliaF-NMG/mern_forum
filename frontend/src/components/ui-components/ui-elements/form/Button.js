@@ -1,10 +1,4 @@
-/*
- * @Author: Chanaka Wickramasinghe
- * @Description: Material FAB Wrapper, Button with Icon Wrapper
- * @Date: 2020-01-31 09:56:10
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 22:04:27
- */
+
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -79,12 +73,7 @@ const InputButton = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Input Button Wrapper
- * --------------------------------------------
- */
+
 
 InputButton.propTypes = {
   /** element Wrapper css class */
@@ -179,11 +168,7 @@ const SubmitButtonMemo = memo(InputButton, areEqualSubmitProp);
 
 //----------------InputButtonWithState---------------------
 
-/* --------------------------------------------
- * @Author:Nisal Madusanka(EruliaF)
- * @Description: Input Button WithState
- * --------------------------------------------
- */
+
 
 const InputButtonWithState = ({
   elementWrapperStyle = '',
@@ -235,11 +220,7 @@ const InputButtonWithState = ({
 
 //----------------SubmitButton---------------------
 
-/* --------------------------------------------
- * @Author:Nisal Madusanka(EruliaF)
- * @Description: submit data to api
- * --------------------------------------------
- */
+
 
 const SubmitButton = ({
   elementWrapperStyle = '',

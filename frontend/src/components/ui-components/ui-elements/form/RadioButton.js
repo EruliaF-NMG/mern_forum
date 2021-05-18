@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Material Radio Button Group Wrapper
  * @Date: 2020-02-03 03:20:32
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 11:38:06
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:40:16
  */
 
 import React, { memo } from 'react';
@@ -23,12 +23,7 @@ import { useAPIBaseInput } from '../../../hooks/common-hooks/useFormInputState.h
 
 const emptyFun = (...para) => undefined;
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Radio Button Group Wrapper
- * --------------------------------------------
- */
+
 
 const RadioButtonsGroup = ({
   elementWrapperStyle = '',
@@ -96,12 +91,7 @@ const RadioButtonsGroup = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Radio Button Group Wrapper
- * --------------------------------------------
- */
+
 
 RadioButtonsGroup.propTypes = {
   /** element Wrapper css class */
@@ -183,12 +173,7 @@ const areEqual = (prevProps, nextProps) => {
 
 const RadioButtonsGroupMemo = memo(RadioButtonsGroup, areEqual);
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Radio Button Group With State
- * --------------------------------------------
- */
+
 
 const RadioButtonsGroupWithState = ({
   elementWrapperStyle = '',
@@ -258,12 +243,7 @@ const RadioButtonsGroupWithState = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Radio Button Group With State
- * --------------------------------------------
- */
+
 
 RadioButtonsGroupWithState.propTypes = {
   /** element Wrapper css class */

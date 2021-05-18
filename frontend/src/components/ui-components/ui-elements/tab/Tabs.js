@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Material Tab Component
  * @Date: 2020-02-12 ‏‎11:33:36
- * @Last Modified by: Chanaka Wickramasinghe
- * @Last Modified time: 2020-03-04 11:57:34
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:39:34
  */
 
 import React from 'react';
@@ -21,7 +21,7 @@ const emptyFun = (...para) => undefined;
 
 /**
  * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Tab Wrapper
  * --------------------------------------------
  */
@@ -118,7 +118,7 @@ const SubTab = (props) => {
 
 /**
  * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Tab Wrapper
  * --------------------------------------------
  */

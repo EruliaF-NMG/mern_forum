@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Material CheckBox Wrappers
  * @Date: 2020-02-03 04:53:32
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 11:32:07
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-05-18 08:39:49
  */
 
 import React, { memo } from 'react';
@@ -30,13 +30,7 @@ const checkBoxLabelPlacement = {
   bottom: 'bottom',
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Check box Wrapper
- * @usedIn : <CheckBoxWithState/>
- * --------------------------------------------
- */
+
 
 const CheckBox = ({
   elementWrapperStyle = '',
@@ -99,12 +93,6 @@ const CheckBox = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Check box Wrapper
- * --------------------------------------------
- */
 
 CheckBox.propTypes = {
   /** element Wrapper css class */
@@ -171,12 +159,7 @@ const areEqual = (prevProps, nextProps) => {
 
 const CheckBoxMemo = memo(CheckBox, areEqual);
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Check box Wrapper With State
- * --------------------------------------------
- */
+
 
 const CheckBoxWithState = ({
   elementWrapperStyle = '',

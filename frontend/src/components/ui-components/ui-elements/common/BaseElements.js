@@ -1,9 +1,4 @@
-/*
- * @Author: Chanaka Wickramasinghe
- * @Date: 2020-02-03 14:18:10
- * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2021-03-09 23:40:52
- */
+
 
 import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
@@ -22,12 +17,7 @@ import { baseTemplate } from '../../../../config/template.config';
 const emptyFun = (...para) => undefined;
 const EmptyComponent = (...para) => <Fragment></Fragment>;
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Tooltip Wrapper
- * --------------------------------------------
- */
+
 
 const TooltipWrapper = ({
   elementStyle = '',
@@ -48,12 +38,7 @@ const TooltipWrapper = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Tooltip Wrapper
- * --------------------------------------------
- */
+
 
 TooltipWrapper.propTypes = {
   /** Tooltip element css class */
@@ -85,12 +70,7 @@ TooltipWrapper.propTypes = {
 
 //----------------BreadCrumbWrapper---------------------
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Card Wrapper
- * --------------------------------------------
- */
+
 
 const UICard = ({ elementStyle = '', children = null }) => {
   return (
@@ -126,12 +106,7 @@ UICard.propTypes = {
 
 //----------------UICard---------------------
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Default Icon Wrapper
- * --------------------------------------------
- */
+
 
 const Icon = ({
   elementStyle = '',
@@ -149,12 +124,7 @@ const Icon = ({
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: Default Icon Wrapper
- * --------------------------------------------
- */
+
 
 Icon.propTypes = {
   /** Icon element css class */
@@ -169,12 +139,7 @@ Icon.propTypes = {
 
 //----------------DefaultIcon---------------------
 
-/**
- * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
- * @Description: ConvertDateFormat component
- * --------------------------------------------
- */
+
 const ThemeProvider = ({ children = null }) => {
   return (
     <Fragment>
@@ -186,12 +151,7 @@ const ThemeProvider = ({ children = null }) => {
   );
 };
 
-/**
- * --------------------------------------------
- * @Author: Nisal Madusanka(EruliaF)
- * @Description: Circle Loader
- * --------------------------------------------
- */
+
 const CircleLoaderElement = ({
   loaderStyle = '',
   loaderSize = 40,

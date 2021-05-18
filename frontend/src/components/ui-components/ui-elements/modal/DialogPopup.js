@@ -1,9 +1,9 @@
 /*
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Material Dialog Popup
  * @Date: 2020-02-13 09:42:12
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2020-07-08 10:28:00
+ * @Last Modified time: 2021-05-18 08:39:16
  */
 
 import React  from 'react';
@@ -22,7 +22,7 @@ const emptyFun = (...para) => undefined;
 
 /**
  * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Dialog Popup Wrapper
  * --------------------------------------------
  */
@@ -211,7 +211,7 @@ const DialogPopup=({
 
 /**
  * --------------------------------------------
- * @Author: Chanaka Wickramasinghe
+ * @Author: Nisal Madusanka(EruliaF)
  * @Description: Dialog Popup Wrapper
  * --------------------------------------------
  */
